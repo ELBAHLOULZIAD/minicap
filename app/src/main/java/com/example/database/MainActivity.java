@@ -1,5 +1,4 @@
-//Ziad El-Bahloul
-//ID:40036145
+
 package com.example.database;
 
 import androidx.annotation.NonNull;
