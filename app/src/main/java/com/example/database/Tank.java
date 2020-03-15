@@ -1,5 +1,5 @@
 package com.example.database;
-
+//Tank Database setup parameters
 public class Tank {
     private Integer ID;
     private String Title;

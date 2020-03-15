@@ -1,5 +1,5 @@
 package com.example.database;
-
+//View the selected tank
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;

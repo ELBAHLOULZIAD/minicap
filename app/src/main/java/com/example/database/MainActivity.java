@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
     /** ....................................... **/
 
-    protected ListView listviewitems;
+    protected ListView listviewitems;//listview to list all tanks
 
     protected FloatingActionButton actionbutton;
-    ArrayList<String> tanksListtext=new ArrayList<>();
-    ArrayList<String> tanksListtextinch=new ArrayList<>();
+    ArrayList<String> tanksListtext=new ArrayList<>();//array to list tanks in cm's
+    ArrayList<String> tanksListtextinch=new ArrayList<>();//array to list tanks in inches
     int e=0;
 
     @Override
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         actionbutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {//once insert button is clicked it runs a new fragment called insert tank frag.
 
                 inserttankfrag dialog = new inserttankfrag();
                 dialog.show(getSupportFragmentManager(), "Insert Tank");
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
         loadlistview();
         listviewitems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//the selection from listview, once you click on any tank
                // Intent intent = new Intent(MainActivity.this, tankview.class);
-                Intent intent = new Intent(MainActivity.this, tankview.class);
+                Intent intent = new Intent(MainActivity.this, tankview.class);//running the tankview activity
 
-                String tankselected=tanksListtext.get(position);
+                String tankselected=tanksListtext.get(position);//locating the position where it will pass the tank name and tank height
                 intent.putExtra("selectedd",tankselected);
                 startActivity(intent);
 
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     ;
 
-    public boolean onCreateOptionsMenu(Menu menu) {//creates the drop down menu with the item grade convertor
+    public boolean onCreateOptionsMenu(Menu menu) {//creates the drop down menu with the item for conversion
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.example_menu, menu);
         return true;
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item1) {
         if (item1.isEnabled()& e==1) { //whenever the value is 1, it means that its number and convert it to letters by calling the arraygrade that is inserted into arrayadapter
 
-
+//to list the tanks in cms
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtext);
             String list;
             listviewitems.setAdapter(arrayAdapter);
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
         else if (item1.isEnabled()& e==0){ //whenever the value is 0, it means that its number and convert it to letters by calling the arraygrade that is inserted into arrayadapter
-
+//to list the tanks in inches
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
             listviewitems.setAdapter(arrayAdapter);
             e=1;//before exit set e to 1 so it will enter the If above condition
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     protected void loadlistview()
         {
             DatabaseHelper dbHelper =new DatabaseHelper(this);
-            //List<Course> courses =dbHelper.getAllCourse();
+//listing all tanks
             final List<Tank> tanks =dbHelper.getAllTanks();
 
 
@@ -170,7 +170,11 @@ public class MainActivity extends AppCompatActivity {
 
                  ArrayAdapter arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,tanksListtext);
                  listviewitems.setAdapter(arrayAdapter);
-            refresh(1000); }
+
+
+            refresh(1000); //refresh
+            }
+            //refresh function
 private void refresh (int milliseconds)
 { final Handler handler= new Handler();
 final Runnable runnable= new Runnable(){
