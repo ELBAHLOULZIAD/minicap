@@ -7,7 +7,4 @@
     <item android:id="@+id/item1"
         android:title="Convert from Metric to Imperial"
         app:showAsAction="never"/>
-    <item android:id="@+id/item2"
-        android:title="Delete Tank"
-        app:showAsAction="never"/>
 </menu>

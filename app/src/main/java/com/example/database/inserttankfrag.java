@@ -52,7 +52,7 @@ int idradio=-1;
         String code = tankcode.getText().toString();
         DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
         Toast.makeText(getActivity(), "the radio value before if " + idradio, Toast.LENGTH_SHORT).show();
-        if (!(title.equals("") || code.equals("")))
+        if (!(title.equals("") || code.equals("")|| code.equals("0")))
         {
 
             { if(idradio>0)

@@ -13,6 +13,6 @@ public class Config {
     //public static final String COLUMN_COURSE_CODE="code";
     public static final String COLUMN_TANK_CODE="code";
    // public static final String COLUMN_COURSE_ASSIGNTITLE="ASSITITLE";
-    //public static final String COLUMN_COURSE_ASSIGNGRADE="ASSIGRADE";
+   // public static final String COLUMN_COURSE_ASSIGNGRADE="ASSIGRADE";
 
 }
