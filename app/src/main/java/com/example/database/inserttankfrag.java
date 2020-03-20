@@ -18,7 +18,7 @@ import com.example.database.database.DatabaseHelper;
 public class inserttankfrag extends DialogFragment {
 
   //  protected EditText coursetitle;
-  protected EditText tanktitle;
+    protected EditText tanktitle;
    // protected EditText coursecode;
     protected EditText tankcode;
     protected Button savebutton;
@@ -45,10 +45,7 @@ int idradio=-1;
     @Override
     public void onClick(View v) {
 
-        //i will add a full course with no assignment nor grade and later on i will modify the assignment name with the new name and the new grade
-//try{
-
-      String title = tanktitle.getText().toString();
+        String title = tanktitle.getText().toString();
         String code = tankcode.getText().toString();
         DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
         Toast.makeText(getActivity(), "the radio value before if " + idradio, Toast.LENGTH_SHORT).show();
