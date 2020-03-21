@@ -26,9 +26,7 @@ public class confnoti extends DialogFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-        //  return inflater.inflate(R.layout.fragment_confnoti, container, false);
         final View view = inflater.inflate(R.layout.fragment_confnoti, container, false);
         final Switch switch2 = (Switch) view.findViewById(R.id.switch2);
 
@@ -48,15 +46,14 @@ public class confnoti extends DialogFragment {
                                                            }
                                                        }
                                                    });
-        //switch2.setOnCheckedChangeListener(new switch2.OnCheckedChangeListener());
-        configtext = view.findViewById(R.id.configtext);
+                configtext = view.findViewById(R.id.configtext);
         timetext = view.findViewById(R.id.timetext);
         savebutton = view.findViewById(R.id.savebutton);
         cancelbutton = view.findViewById(R.id.cancelbutton);
         configtext.setEnabled(false);
         timetext.setEnabled(false);
         savebutton.setEnabled(false);
-        //switch2.setChecked(false);
+
        if(((MainActivity)getActivity()).swt==1) {
            switch2.setChecked(true);
            timetext.setText(((MainActivity)getActivity()).notifi);
@@ -81,12 +78,12 @@ public class confnoti extends DialogFragment {
                     if(hours<=24&minutes<=60&seconds<=60&duration>0) {
                         ((MainActivity) getActivity()).swt = 1;
                         ((MainActivity) getActivity()).noti = 0;
-                        ((MainActivity) getActivity()).ref = duration * 165;
+                        ((MainActivity) getActivity()).ref = duration*1000;
                         configtext.setEnabled(false);
                         timetext.setEnabled(false);
                         savebutton.setEnabled(false);
                         ((MainActivity) getActivity()).id= 1;
-                    }
+                        ((MainActivity)getActivity()).timerrrr(); }
 
                     else
                         {Toast.makeText(getActivity(), "Please Enter the time hh:mm:ss " ,Toast.LENGTH_LONG).show();}
@@ -96,6 +93,7 @@ public class confnoti extends DialogFragment {
                     else if (!switch2.isChecked()){
 
                         ((MainActivity) getActivity()).swt = 0;
+                        
                         savebutton.setEnabled(false);
                     }
                 }

@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.Editable;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -64,8 +66,9 @@ public class MainActivity extends AppCompatActivity  {
      int noti = 1;//notification default value is false
         int id=1;
         int swt=0;
+
     Editable notifi;
-int ref=10000;//default value for notification recurrence
+    static int ref=100000;//default value for notification recurrence
     private NotificationManager mNotifyManager;
     private Notification.Builder mBuilder;
 
@@ -79,7 +82,7 @@ int ref=10000;//default value for notification recurrence
     protected FloatingActionButton actionbutton;
     protected Button selectbutton;
     protected FloatingActionButton actionbutton2;
-
+    protected TextView textView;
     ArrayList<String> tanksListtext = new ArrayList<>();//array to list tanks in cm's
     ArrayList<String> tanksListtextinch = new ArrayList<>();//array to list tanks in inches
     int e = 0;
@@ -90,7 +93,7 @@ int ref=10000;//default value for notification recurrence
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        textView = findViewById(R.id.textView);
         listviewitems = findViewById(R.id.listviewitems);
         actionbutton = findViewById(R.id.actionbutton);
         selectbutton = findViewById(R.id.selectbutton);
@@ -124,7 +127,8 @@ int ref=10000;//default value for notification recurrence
 
         });
         loadlistview();
-       timerz();
+        timerrrr();
+        //timerz();
         listviewitems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//the selection from listview, once you click on any tank
@@ -138,7 +142,6 @@ int ref=10000;//default value for notification recurrence
 
             }
         });
-
 
 
 
@@ -224,7 +227,8 @@ int ref=10000;//default value for notification recurrence
                         tanksListtextinch.add(temp2);
                     if(((d / y) * 100<20) && noti==0 && swt==1)
                 { addNotification(tanks.get(i).getTitle());}
-                    }
+                    if((i+1==tanks.size()))
+                    noti=1;}
                     prev = waterLevel;
                 }
 
@@ -274,6 +278,7 @@ int ref=10000;//default value for notification recurrence
                 tanksListtextinch.add(temp2);
                 if(((d / y) * 100<20) && noti==0 && swt==1)
                 { addNotification(tanks.get(i).getTitle());}
+
             }
 
 
@@ -350,34 +355,47 @@ int ref=10000;//default value for notification recurrence
 
 
 
-    protected void timerz() {
-        if (noti == 0)
-        {noti = 1;
-        id=1;
-            refresh2(ref);}//20000 equivalent to 108seconds:The conversion from sec to milli is 172.4137931
-      else if(noti==1)
-        {noti=0;
-        id=1;
-        refresh2(2000);}
-    }
+//    protected void timerz() {
+//        if (noti == 0)
+//        {noti = 1;
+//        id=1;
+//            refresh2(ref);}//20000 equivalent to 108seconds:The conversion from sec to milli is 172.4137931
+//      else if(noti==1)
+//        {noti=0;
+//        id=1;
+//        refresh2(2000);}
+//    }
+//
+//    private void refresh2(int milliseconds) {
+//        final Handler handler = new Handler();
+//        final Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                timerz();
+//
+//            }
+//        };
+//        handler.postDelayed(runnable, milliseconds);
+//
+//    }
+public void timerrrr() {
+    if (swt == 1) {
+        new CountDownTimer(ref, 1000) {
 
+            public void onTick(long millisUntilFinished) {
+                textView.setText("seconds remaining: " + millisUntilFinished / 1000);
 
-    private void refresh2(int milliseconds) {
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                timerz();
-
+                // Toast.makeText(this, "seconds remaining: " + f, Toast.LENGTH_SHORT).show();
             }
-        };
-        handler.postDelayed(runnable, milliseconds);
 
+            public void onFinish() {
+                noti = 0;
+            timerrrr();
+            }
+        }.start();
     }
 
-
-
-
+}
 
 
     //refresh function
