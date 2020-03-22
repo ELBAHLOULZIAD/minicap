@@ -42,6 +42,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.NotificationManager.IMPORTANCE_HIGH;
+
 //import static androidx.core.app.NotificationCompat.Builder;
 
 public class MainActivity extends AppCompatActivity  {
@@ -63,9 +65,9 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-     int noti = 1;//notification default value is false
-        int id=1;
-        int swt=0;
+   static  int noti = 1;//notification default value is false
+      static  int id=1;
+     static   int swt=0;
 
     Editable notifi;
     static int ref=100000;//default value for notification recurrence
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity  {
         });
         loadlistview();
         timerrrr();
-        //timerz();
+
         listviewitems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//the selection from listview, once you click on any tank
@@ -243,7 +245,7 @@ public class MainActivity extends AppCompatActivity  {
 
             ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
             listviewitems.setAdapter(arrayAdapter);
-            refresh(10000); //refresh
+            refresh(1000); //refresh
             if (e == 1)
                 e = 0;
 
@@ -285,7 +287,7 @@ public class MainActivity extends AppCompatActivity  {
             ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
             listviewitems.setAdapter(arrayAdapter);
 
-            refresh(10000); //refresh
+            refresh(1000); //refresh
             if (e == 1)
                 e = 0;
 
@@ -322,15 +324,19 @@ public class MainActivity extends AppCompatActivity  {
                 String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_HIGH);
+                    NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications",IMPORTANCE_HIGH);
 
                     // Configure the notification channel.
                     notificationChannel.setDescription("Channel description");
+
+               //     notificationChannel.setLockscreenVisibility(1);
+
                     notificationChannel.enableLights(true);
                     notificationChannel.setLightColor(Color.RED);
                     notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
                     notificationChannel.enableVibration(true);
                     notificationManager.createNotificationChannel(notificationChannel);
+
                 }
 
 
@@ -341,55 +347,27 @@ public class MainActivity extends AppCompatActivity  {
                         .setWhen(System.currentTimeMillis())
                         .setSmallIcon(R.drawable.alert)
                         .setTicker("Hearty365")
-                        //     .setPriority(Notification.PRIORITY_MAX)
+                        .setPriority(Notification.PRIORITY_MAX)
                         .setContentTitle("Tank Level Notification")
                         .setContentText("The Level of water in "+name+" is  too low.")
-                        .setContentInfo("Info");
+                        .setContentInfo("Info")
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
                 notificationManager.notify(/*notification id*/id, notificationBuilder.build());
                 id++;
             }
 
-
-
-
-
-
-//    protected void timerz() {
-//        if (noti == 0)
-//        {noti = 1;
-//        id=1;
-//            refresh2(ref);}//20000 equivalent to 108seconds:The conversion from sec to milli is 172.4137931
-//      else if(noti==1)
-//        {noti=0;
-//        id=1;
-//        refresh2(2000);}
-//    }
-//
-//    private void refresh2(int milliseconds) {
-//        final Handler handler = new Handler();
-//        final Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                timerz();
-//
-//            }
-//        };
-//        handler.postDelayed(runnable, milliseconds);
-//
-//    }
 public void timerrrr() {
     if (swt == 1) {
-        new CountDownTimer(ref, 1000) {
+         new CountDownTimer(ref, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                textView.setText("seconds remaining: " + millisUntilFinished / 1000);
 
-                // Toast.makeText(this, "seconds remaining: " + f, Toast.LENGTH_SHORT).show();
             }
 
             public void onFinish() {
                 noti = 0;
+                id=1;
             timerrrr();
             }
         }.start();
@@ -411,7 +389,6 @@ public void timerrrr() {
         handler.postDelayed(runnable, milliseconds);
 
     }
-
 
 
 }

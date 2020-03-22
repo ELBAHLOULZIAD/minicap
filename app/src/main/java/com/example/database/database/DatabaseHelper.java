@@ -110,6 +110,7 @@ public void deleteEntry(long row) {
     // Deletes a row given its rowId, but I want to be able to pass
     // in the name of the KEY_NAME and have it delete that row.
     db.delete(Config.TANK_TABLE_NAME, Config.COLUMN_TANK_ID + "=" + row, null);
+    db.close();
 }
 
 }

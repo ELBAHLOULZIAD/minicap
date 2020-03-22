@@ -58,7 +58,7 @@ int idradio=-1;
             double r = Double.parseDouble(String.valueOf(code));
                 m=r*2.14;
                 String tmpStr11 = String.valueOf(m);
-                Toast.makeText(getActivity(), "the tank height in Centim is " + tmpStr11, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "the tank height in Centim is " + tmpStr11, Toast.LENGTH_SHORT).show();
                 dbhelper.insertTank(new Tank(title,tmpStr11));
                  ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
                 ((MainActivity)getActivity()).tanksListtextinch.clear();

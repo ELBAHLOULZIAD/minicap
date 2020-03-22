@@ -93,7 +93,7 @@ public class confnoti extends DialogFragment {
                     else if (!switch2.isChecked()){
 
                         ((MainActivity) getActivity()).swt = 0;
-                        
+                        ((MainActivity) getActivity()).ref = 0;
                         savebutton.setEnabled(false);
                     }
                 }
@@ -116,10 +116,6 @@ public class confnoti extends DialogFragment {
 
 
    return view; };
-
-
-
-
 }
 
 
