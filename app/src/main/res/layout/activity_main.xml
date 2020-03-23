@@ -60,12 +60,12 @@
 
     <ListView
         android:id="@+id/listviewitems"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="412dp"
+        android:layout_height="520dp"
         android:cacheColorHint="#03FFFFFF"
         android:textSize="8sp"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="40dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-4dp">
 
     </ListView>
 

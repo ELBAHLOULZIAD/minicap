@@ -32,6 +32,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.database.database.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity  {
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = firebaseDatabase.getReference();
+
+    private FirebaseAuth firebaseAuth;
 
     final DatabaseReference refChild = databaseReference.child("Test").child("Stream").child("String");
 
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         textView = findViewById(R.id.textView);
         listviewitems = findViewById(R.id.listviewitems);
         actionbutton = findViewById(R.id.actionbutton);
@@ -105,7 +110,7 @@ public class MainActivity extends AppCompatActivity  {
                                             public void onClick(View v) {
                                                 openactivityselect();
                                             }
-                                        }
+        }
         );
 
         actionbutton.setOnClickListener(new View.OnClickListener() {
@@ -165,30 +170,47 @@ public class MainActivity extends AppCompatActivity  {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.example_menu, menu);
         return true;
-
     }
 
 
-    public boolean onOptionsItemSelected(@NonNull MenuItem item1) {
-        if (item1.isEnabled() & e == 1) { //whenever the value is 1, it means that its number and convert it to letters by calling the arraygrade that is inserted into arrayadapter
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-//to list the tanks in cms
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtext);
-            String list;
-            listviewitems.setAdapter(arrayAdapter);
+        switch (item.getItemId()) {
 
-            e = 0;//before returning set e=0 so the next time it will alternate to the numeric array
-            return false;
-        } else if (item1.isEnabled() & e == 0) { //whenever the value is 0, it means that its number and convert it to letters by calling the arraygrade that is inserted into arrayadapter
-//to list the tanks in inches
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
-            listviewitems.setAdapter(arrayAdapter);
+            case R.id.item1: {
 
-            e = 1;//before exit set e to 1 so it will enter the If above condition
-            return false;
+                if (e == 1) { //whenever the value is 1, it means that its number and convert it to letters by calling the arraygrade that is inserted into arrayadapter to list the tanks in cms
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtext);
+                    String list;
+                    listviewitems.setAdapter(arrayAdapter);
+
+                    e = 0;//before returning set e=0 so the next time it will alternate to the numeric array
+                    return false;
+                } else if (e == 0) { //whenever the value is 0, it means that its number and convert it to letters by calling the arraygrade that is inserted into arrayadapter to list the tanks in inches
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
+                    listviewitems.setAdapter(arrayAdapter);
+
+                    e = 1;//before exit set e to 1 so it will enter the If above condition
+                    return false;
+                }
+                break;
+            }
+
+            case R.id.logout: {
+                Logout();
+                break;
+            }
         }
-        return false;
+            return false;
     }
+
+    private void Logout(){
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(MainActivity.this, Login.class));
+        }
+
+
 
     protected void loadlistview() {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
