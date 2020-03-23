@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity  {
    static  int noti = 1;//notification default value is false
       static  int id=1;
      static   int swt=0;
-
+static int can=0;
     Editable notifi;
     static int ref=100000;//default value for notification recurrence
     private NotificationManager mNotifyManager;
@@ -221,6 +221,9 @@ public class MainActivity extends AppCompatActivity  {
         int check;
         check = isOnline();
         //Toast.makeText(this, "The connection is " + check, Toast.LENGTH_LONG).show();
+
+
+
         if (check == 1) {
             refChild.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -230,6 +233,10 @@ public class MainActivity extends AppCompatActivity  {
                     waterLevel = Integer.parseInt(intWaterLevel);
                     tanksListtext.clear();
                     tanksListtextinch.clear();
+//                    if(prev!=waterLevel)
+//                    {noti=0;
+//                    can=1;
+//                    timerrrr();}
                     for (int i = 0; i < tanks.size(); i++) {
                         String temp = "";
                         String temp2 = "";
@@ -377,26 +384,37 @@ public class MainActivity extends AppCompatActivity  {
 
                 notificationManager.notify(/*notification id*/id, notificationBuilder.build());
                 id++;
-            }
 
-public void timerrrr() {
-    if (swt == 1) {
-         new CountDownTimer(ref, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            public void onFinish() {
-                noti = 0;
-                id=1;
-            timerrrr();
-            }
-        }.start();
     }
 
-}
 
+
+
+
+            public void timerrrr() {
+
+
+                if (swt == 1) {
+                    CountDownTimer start = new CountDownTimer(ref, 1000) {
+
+                        public void onTick(long millisUntilFinished) {
+
+                        }
+
+                        public void onFinish() {
+                            noti = 0;
+                            id = 1;
+                            timerrrr();
+                        }
+
+
+                    }.start();
+
+
+
+
+                }
+            }
 
     //refresh function
     private void refresh(int milliseconds) {
