@@ -28,6 +28,7 @@ public class Login extends AppCompatActivity {
     private int counter = 5;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    private TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class Login extends AppCompatActivity {
         Info = (TextView)findViewById(R.id.tvInfo);
         Login = (Button)findViewById(R.id.btnLogin);
         Register = (TextView)findViewById(R.id.tvRegister);
+        forgotPassword = (TextView)findViewById(R.id.tvForgotPassword);
 
         Info.setText("Number of Attempts Remaining: 5");
 
@@ -66,6 +68,13 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, ResetPassword.class));
+            }
+        });
+
     }
 
     private void validate(String userName, String userPassword){
@@ -79,8 +88,8 @@ public class Login extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     progressDialog.dismiss();
-                    Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Login.this, MainActivity.class));
+                    //Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    checkEmailVerification();
                 }else{
                     Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     counter--;
@@ -95,5 +104,17 @@ public class Login extends AppCompatActivity {
 
     }
 
+private void checkEmailVerification(){
+        FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+        Boolean emailflag = firebaseUser.isEmailVerified();
+
+        if(emailflag){
+            finish();
+            startActivity(new Intent(Login.this, MainActivity.class));
+        }else{
+            Toast.makeText(this, "Verify your Email", Toast.LENGTH_SHORT).show();
+            firebaseAuth.signOut();
+        }
+}
 
 }

@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Registration extends AppCompatActivity {
 
@@ -45,8 +46,7 @@ public class Registration extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if(task.isSuccessful()) {
-                                Toast.makeText(Registration.this, "Registration Complete", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Registration.this, Login.class));
+                               sendEmailVerification();
                             }else{
                                 Toast.makeText(Registration.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                             }
@@ -88,5 +88,26 @@ public class Registration extends AppCompatActivity {
 
         return result;
     }
+
+    private void sendEmailVerification(){
+        final FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser!=null){
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(Registration.this, "Successfully Registered: A Verification Email Will Be Sent Shortly!", Toast.LENGTH_LONG).show();
+                        firebaseAuth.signOut();
+                        finish();
+                        startActivity(new Intent(Registration.this, Login.class));
+                    }else{
+                        Toast.makeText(Registration.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+
 
 }
