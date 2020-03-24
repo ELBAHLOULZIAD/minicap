@@ -83,7 +83,8 @@ public class confnoti extends DialogFragment {
                         timetext.setEnabled(false);
                         savebutton.setEnabled(false);
                         ((MainActivity) getActivity()).id= 1;
-                        ((MainActivity)getActivity()).timerrrr(); }
+                        ((MainActivity)getActivity()).countdowntimer.cancel();
+                        ((MainActivity)getActivity()).countdowntimer.start(); }
 
                     else
                         {Toast.makeText(getActivity(), "Please Enter the time hh:mm:ss " ,Toast.LENGTH_LONG).show();}

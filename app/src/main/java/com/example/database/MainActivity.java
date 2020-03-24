@@ -65,15 +65,16 @@ public class MainActivity extends AppCompatActivity  {
     String intWaterLevel;
     Integer waterLevel;
     static Integer prev;
+    CountDownTimer countdowntimer;
 
 
 
    static  int noti = 1;//notification default value is false
       static  int id=1;
      static   int swt=0;
-static int can=0;
+
     Editable notifi;
-    static int ref=100000;//default value for notification recurrence
+    static int ref=10000;//default value for notification recurrence
     private NotificationManager mNotifyManager;
     private Notification.Builder mBuilder;
 
@@ -105,6 +106,7 @@ static int can=0;
         actionbutton = findViewById(R.id.actionbutton);
         selectbutton = findViewById(R.id.selectbutton);
         actionbutton2 = findViewById(R.id.actionbutton2);
+
         selectbutton.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
@@ -134,8 +136,8 @@ static int can=0;
 
         });
         loadlistview();
-        timerrrr();
-
+        countdowntimer = new CountDownTimerClass(ref, 1000);
+        countdowntimer.start();
         listviewitems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//the selection from listview, once you click on any tank
@@ -179,16 +181,13 @@ static int can=0;
 
             case R.id.item1: {
 
-                if (e == 1) { //whenever the value is 1, it means that its number and convert it to letters by calling the arraygrade that is inserted into arrayadapter to list the tanks in cms
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtext);
-                    String list;
-                    listviewitems.setAdapter(arrayAdapter);
+                if (e == 1) {
 
-                    e = 0;//before returning set e=0 so the next time it will alternate to the numeric array
+
+                 e = 0;
                     return false;
                 } else if (e == 0) { //whenever the value is 0, it means that its number and convert it to letters by calling the arraygrade that is inserted into arrayadapter to list the tanks in inches
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
-                    listviewitems.setAdapter(arrayAdapter);
+
 
                     e = 1;//before exit set e to 1 so it will enter the If above condition
                     return false;
@@ -222,8 +221,7 @@ static int can=0;
         check = isOnline();
         //Toast.makeText(this, "The connection is " + check, Toast.LENGTH_LONG).show();
 
-
-
+       // countdowntimer.cancel();
         if (check == 1) {
             refChild.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -233,10 +231,10 @@ static int can=0;
                     waterLevel = Integer.parseInt(intWaterLevel);
                     tanksListtext.clear();
                     tanksListtextinch.clear();
-//                    if(prev!=waterLevel)
-//                    {noti=0;
-//                    can=1;
-//                    timerrrr();}
+
+
+
+
                     for (int i = 0; i < tanks.size(); i++) {
                         String temp = "";
                         String temp2 = "";
@@ -257,10 +255,16 @@ static int can=0;
                         tanksListtext.add(temp);
                         tanksListtextinch.add(temp2);
                     if(((d / y) * 100<20) && noti==0 && swt==1)
-                { addNotification(tanks.get(i).getTitle());}
+                { addNotification(tanks.get(i).getTitle());
                     if((i+1==tanks.size()))
-                    noti=1;}
+                    {Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
+                        noti=1;
+                    countdowntimer.cancel();
+                        countdowntimer = new CountDownTimerClass(ref, 1000);
+                        countdowntimer.start();
+                    }}}
                     prev = waterLevel;
+
                 }
 
                 @Override
@@ -272,11 +276,17 @@ static int can=0;
             /** ....................................... **/
 
 
-            ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
-            listviewitems.setAdapter(arrayAdapter);
+
+            if (e==0)
+            {ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
+                listviewitems.setAdapter(arrayAdapter);}
+            if(e==1)
+            {ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
+                listviewitems.setAdapter(arrayAdapter);}
+
+
             refresh(1000); //refresh
-            if (e == 1)
-                e = 0;
+
 
         } else if (check == 0) {
             Toast.makeText(this, "waterlevel saved is " + prev, Toast.LENGTH_LONG).show();
@@ -312,13 +322,15 @@ static int can=0;
 
             }
 
-
-            ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
-            listviewitems.setAdapter(arrayAdapter);
+        if (e==0)
+        {ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
+            listviewitems.setAdapter(arrayAdapter);}
+        if(e==1)
+        {ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
+            listviewitems.setAdapter(arrayAdapter);}
 
             refresh(1000); //refresh
-            if (e == 1)
-                e = 0;
+
 
         }
 
@@ -391,30 +403,6 @@ static int can=0;
 
 
 
-            public void timerrrr() {
-
-
-                if (swt == 1) {
-                    CountDownTimer start = new CountDownTimer(ref, 1000) {
-
-                        public void onTick(long millisUntilFinished) {
-
-                        }
-
-                        public void onFinish() {
-                            noti = 0;
-                            id = 1;
-                            timerrrr();
-                        }
-
-
-                    }.start();
-
-
-
-
-                }
-            }
 
     //refresh function
     private void refresh(int milliseconds) {
@@ -429,6 +417,39 @@ static int can=0;
         handler.postDelayed(runnable, milliseconds);
 
     }
+
+
+    public class CountDownTimerClass extends CountDownTimer {
+
+        public CountDownTimerClass(long millisInFuture, long countDownInterval) {
+
+            super(millisInFuture, countDownInterval);
+
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+            int progress = (int) (millisUntilFinished/1000);
+
+           // textview.setText(Integer.toString(progress));
+
+        }
+
+        @Override
+        public void onFinish() {
+                         noti = 0;
+                            id = 1;
+         //   textview.setText(" Count Down Finish ");
+            countdowntimer.start();
+
+        }
+
+    }
+
+
+
+
 
 
 }
