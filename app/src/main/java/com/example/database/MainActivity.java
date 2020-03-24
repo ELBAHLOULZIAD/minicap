@@ -182,12 +182,12 @@ public class MainActivity extends AppCompatActivity  {
             case R.id.item1: {
 
                 if (e == 1) {
-
+                   item.setTitle("Convert from Metric to Imperial ");
 
                  e = 0;
                     return false;
                 } else if (e == 0) { //whenever the value is 0, it means that its number and convert it to letters by calling the arraygrade that is inserted into arrayadapter to list the tanks in inches
-
+                    item.setTitle("Convert from Imperial to Metric");
 
                     e = 1;//before exit set e to 1 so it will enter the If above condition
                     return false;
