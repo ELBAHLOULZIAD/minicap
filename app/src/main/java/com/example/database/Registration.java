@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Registration extends AppCompatActivity {
 
-    private EditText userName, userPassword, userEmail;
+    private EditText userName, userPassword, userEmail, confirmPassword;
     private Button regButton;
     private TextView userLogin;
     private FirebaseAuth firebaseAuth;
@@ -69,6 +69,7 @@ public class Registration extends AppCompatActivity {
         userName = (EditText)findViewById(R.id.etUserName);
         userPassword = (EditText)findViewById(R.id.etUserPassword);
         userEmail = (EditText)findViewById(R.id.etUserEmail);
+        confirmPassword = (EditText)findViewById(R.id.etConfirmPassword);
         regButton = (Button)findViewById(R.id.btnRegister);
         userLogin = (TextView)findViewById(R.id.tvUserLogin);
     }
@@ -78,12 +79,17 @@ public class Registration extends AppCompatActivity {
 
         String name = userName.getText().toString();
         String password = userPassword.getText().toString();
+        String confirmation = confirmPassword.getText().toString();
         String email = userEmail.getText().toString();
 
-        if(name.isEmpty() || password.isEmpty() || email.isEmpty()){
+        if(name.isEmpty() || password.isEmpty() || email.isEmpty() || confirmation.isEmpty()){
             Toast.makeText(this, "Please Enter All The Details", Toast.LENGTH_SHORT).show();
         }else{
-            result = true;
+            if(password.compareTo(confirmation) == 0){
+                result = true;
+            }else{
+                Toast.makeText(this, "Password and Confirmation are not the same, Please Recheck", Toast.LENGTH_LONG).show();
+            }
         }
 
         return result;
