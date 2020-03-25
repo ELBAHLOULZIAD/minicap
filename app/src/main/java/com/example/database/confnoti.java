@@ -84,7 +84,8 @@ public class confnoti extends DialogFragment {
                         savebutton.setEnabled(false);
                         ((MainActivity) getActivity()).id= 1;
                         ((MainActivity)getActivity()).countdowntimer.cancel();
-                        ((MainActivity)getActivity()).countdowntimer.start(); }
+                        ((MainActivity)getActivity()).countdowntimer.start();
+                        savebutton.setText("New time is set");}
 
                     else
                         {Toast.makeText(getActivity(), "Please Enter the time hh:mm:ss " ,Toast.LENGTH_LONG).show();}
@@ -96,6 +97,7 @@ public class confnoti extends DialogFragment {
                         ((MainActivity) getActivity()).swt = 0;
                         ((MainActivity) getActivity()).ref = 0;
                         savebutton.setEnabled(false);
+                        savebutton.setText("Notification is Canceled");
                     }
                 }
                         catch(Exception ex){

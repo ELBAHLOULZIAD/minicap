@@ -63,8 +63,10 @@ int idradio=-1;
                  ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
                 ((MainActivity)getActivity()).tanksListtextinch.clear();
             ((MainActivity)getActivity()).loadlistview();
-
-            getDialog().dismiss();
+                savebutton.setText("Added Successfully");
+                savebutton.setEnabled(false);
+//                savebutton.setTextColor(android.R.color.black);
+        //    getDialog().dismiss();
             }
             else if(idradio==2)
             {
@@ -73,8 +75,9 @@ int idradio=-1;
                 ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
                 ((MainActivity)getActivity()).tanksListtextinch.clear();
                 ((MainActivity)getActivity()).loadlistview();
-
-                getDialog().dismiss();
+                savebutton.setText("Added Successfully");
+                savebutton.setEnabled(false);
+                //getDialog().dismiss();
 
             }
        }}

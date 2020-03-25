@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity  {
                     if(((d / y) * 100<20) && noti==0 && swt==1)
                 { addNotification(tanks.get(i).getTitle());
                     if((i+1==tanks.size()))
-                    {Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
+                    {//Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
                         noti=1;
                     countdowntimer.cancel();
                         countdowntimer = new CountDownTimerClass(ref, 1000);
