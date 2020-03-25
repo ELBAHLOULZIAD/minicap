@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,7 +47,7 @@ int idradio=-1;
         String title = tanktitle.getText().toString();
         String code = tankcode.getText().toString();
         DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
-        Toast.makeText(getActivity(), "the radio value before if " + idradio, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getActivity(), "the radio value before if " + idradio, Toast.LENGTH_SHORT).show();
         if (!(title.equals("") || code.equals("")|| code.equals("0")))
         {
 
@@ -63,8 +62,9 @@ int idradio=-1;
                  ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
                 ((MainActivity)getActivity()).tanksListtextinch.clear();
             ((MainActivity)getActivity()).loadlistview();
+                savebutton.setText("Added Successfully");
+                savebutton.setEnabled(false);
 
-            getDialog().dismiss();
             }
             else if(idradio==2)
             {
@@ -73,8 +73,9 @@ int idradio=-1;
                 ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
                 ((MainActivity)getActivity()).tanksListtextinch.clear();
                 ((MainActivity)getActivity()).loadlistview();
-
-                getDialog().dismiss();
+                savebutton.setText("Added Successfully");
+                savebutton.setEnabled(false);
+                //getDialog().dismiss();
 
             }
        }}
@@ -91,7 +92,7 @@ int idradio=-1;
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // checkedId is the RadioButton selected
+
 
                 switch(checkedId) {
                     case R.id.radio_one:
@@ -103,7 +104,8 @@ int idradio=-1;
                         idradio=2;
                         break;
                 }
-                Toast.makeText(getActivity(), "Selected Radio Button: " + idradio, Toast.LENGTH_SHORT).show();}
+              //  Toast.makeText(getActivity(), "Selected Radio Button: " + idradio, Toast.LENGTH_SHORT).show();
+            }
         });
 
 

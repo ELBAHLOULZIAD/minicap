@@ -18,6 +18,8 @@ import androidx.fragment.app.DialogFragment;
 
 public class confnoti extends DialogFragment {
     protected TextView configtext;
+    protected TextView text4;
+    protected EditText text5;
     protected EditText timetext;
     protected Button savebutton;
     protected Button cancelbutton;
@@ -26,7 +28,7 @@ public class confnoti extends DialogFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        final int[] percentage = {0};
         final View view = inflater.inflate(R.layout.fragment_confnoti, container, false);
         final Switch switch2 = (Switch) view.findViewById(R.id.switch2);
 
@@ -36,27 +38,36 @@ public class confnoti extends DialogFragment {
                                                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                                                            if (b) {configtext.setEnabled(true);
                                                                timetext.setEnabled(true);
+                                                               text5.setEnabled(true);
                                                                savebutton.setEnabled(true);
 
                                                            }
                                                            else {configtext.setEnabled(false);
                                                                timetext.setEnabled(false);
                                                                savebutton.setEnabled(true);
-
+                                                               text4.setEnabled(false);
+                                                               text5.setEnabled(false);
                                                            }
                                                        }
                                                    });
-                configtext = view.findViewById(R.id.configtext);
+        configtext = view.findViewById(R.id.configtext);
         timetext = view.findViewById(R.id.timetext);
+        text4 = view.findViewById(R.id.text4);
+        text5 = view.findViewById(R.id.text5);
         savebutton = view.findViewById(R.id.savebutton);
         cancelbutton = view.findViewById(R.id.cancelbutton);
         configtext.setEnabled(false);
         timetext.setEnabled(false);
         savebutton.setEnabled(false);
 
+
+
+
        if(((MainActivity)getActivity()).swt==1) {
            switch2.setChecked(true);
            timetext.setText(((MainActivity)getActivity()).notifi);
+
+           text5.setText(((MainActivity)getActivity()).percent1);
        }
 
 
@@ -82,9 +93,16 @@ public class confnoti extends DialogFragment {
                         configtext.setEnabled(false);
                         timetext.setEnabled(false);
                         savebutton.setEnabled(false);
+                        text5.setEnabled(false);
                         ((MainActivity) getActivity()).id= 1;
                         ((MainActivity)getActivity()).countdowntimer.cancel();
-                        ((MainActivity)getActivity()).countdowntimer.start(); }
+                        ((MainActivity)getActivity()).countdowntimer.start();
+                        savebutton.setText("New time is set");
+                        Editable y = text5.getText();
+                        String per=y.toString();
+                        percentage[0] = Integer.parseInt(per);
+                        ((MainActivity) getActivity()).percent=percentage[0] ;
+                        ((MainActivity) getActivity()).percent1=y       ;   }
 
                     else
                         {Toast.makeText(getActivity(), "Please Enter the time hh:mm:ss " ,Toast.LENGTH_LONG).show();}
@@ -96,6 +114,7 @@ public class confnoti extends DialogFragment {
                         ((MainActivity) getActivity()).swt = 0;
                         ((MainActivity) getActivity()).ref = 0;
                         savebutton.setEnabled(false);
+                        savebutton.setText("Notification is Canceled");
                     }
                 }
                         catch(Exception ex){
