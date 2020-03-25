@@ -48,7 +48,7 @@ public class Registration extends AppCompatActivity {
                             if(task.isSuccessful()) {
                                sendEmailVerification();
                             }else{
-                                Toast.makeText(Registration.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Registration.this, "Email Already Exists", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
