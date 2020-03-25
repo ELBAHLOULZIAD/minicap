@@ -65,8 +65,7 @@ int idradio=-1;
             ((MainActivity)getActivity()).loadlistview();
                 savebutton.setText("Added Successfully");
                 savebutton.setEnabled(false);
-//                savebutton.setTextColor(android.R.color.black);
-        //    getDialog().dismiss();
+
             }
             else if(idradio==2)
             {
@@ -94,7 +93,7 @@ int idradio=-1;
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // checkedId is the RadioButton selected
+
 
                 switch(checkedId) {
                     case R.id.radio_one:

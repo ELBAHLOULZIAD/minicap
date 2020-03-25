@@ -23,7 +23,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -66,14 +65,15 @@ public class MainActivity extends AppCompatActivity  {
     Integer waterLevel;
     static Integer prev;
     CountDownTimer countdowntimer;
-
+        static int percent=0;
 
 
    static  int noti = 1;//notification default value is false
       static  int id=1;
      static   int swt=0;
 
-    Editable notifi;
+   static Editable notifi;
+    static Editable percent1;
     static int ref=10000;//default value for notification recurrence
     private NotificationManager mNotifyManager;
     private Notification.Builder mBuilder;
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity  {
                         }
                         tanksListtext.add(temp);
                         tanksListtextinch.add(temp2);
-                    if(((d / y) * 100<20) && noti==0 && swt==1)
+                    if(((d / y) * 100<percent) && noti==0 && swt==1)
                 { addNotification(tanks.get(i).getTitle());
                     if((i+1==tanks.size()))
                     {//Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
         } else if (check == 0) {
-            Toast.makeText(this, "waterlevel saved is " + prev, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "waterlevel saved is " + prev, Toast.LENGTH_LONG).show();
             if (prev == null)//running the app for the first time, we will assume that the sensor is reading 0
             {
                 prev = 0;
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity  {
 
                 tanksListtext.add(temp);
                 tanksListtextinch.add(temp2);
-                if(((d / y) * 100<20) && noti==0 && swt==1)
+                if(((d / y) * 100<percent) && noti==0 && swt==1)
                 { addNotification(tanks.get(i).getTitle());
                     if((i+1==tanks.size()))
                     {//Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
@@ -462,6 +462,8 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-
+//    public void startService(View view) {
+//        startService(new Intent(this, service1.class));
+//    }
 
 }
