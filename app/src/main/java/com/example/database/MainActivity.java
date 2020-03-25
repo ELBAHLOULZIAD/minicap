@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity  {
 
     protected ListView listviewitems;//listview to list all tanks
 
-    protected FloatingActionButton actionbutton;
+//    protected FloatingActionButton actionbutton;
     protected Button selectbutton;
     protected FloatingActionButton actionbutton2;
     protected TextView textView;
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity  {
 
         textView = findViewById(R.id.textView);
         listviewitems = findViewById(R.id.listviewitems);
-        actionbutton = findViewById(R.id.actionbutton);
+//        actionbutton = findViewById(R.id.actionbutton);
         selectbutton = findViewById(R.id.selectbutton);
         actionbutton2 = findViewById(R.id.actionbutton2);
 
@@ -130,23 +130,23 @@ public class MainActivity extends AppCompatActivity  {
         }
         );
 
-        actionbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {//once insert button is clicked it runs a new fragment called insert tank frag.
-                DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
-
-                List<Tank> tanks = dbHelper.getAllTanks();
-                if(tanks.size()<1)
-                {inserttankfrag dialog = new inserttankfrag();
-                dialog.show(getSupportFragmentManager(), "Insert Tank");
-                     }
-                else
-                    Toast.makeText(MainActivity.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
-
-            }
-
-
-        });
+//        actionbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {//once insert button is clicked it runs a new fragment called insert tank frag.
+//                DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
+//
+//                List<Tank> tanks = dbHelper.getAllTanks();
+//                if(tanks.size()<1)
+//                {inserttankfrag dialog = new inserttankfrag();
+//                dialog.show(getSupportFragmentManager(), "Insert Tank");
+//                     }
+//                else
+//                    Toast.makeText(MainActivity.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
+//
+//            }
+//
+//
+//        });
         actionbutton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//once insert button is clicked it runs a new fragment called insert tank frag.

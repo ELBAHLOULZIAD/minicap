@@ -59,9 +59,9 @@ int idradio=-1;
                 String tmpStr11 = String.valueOf(m);
                // Toast.makeText(getActivity(), "the tank height in Centim is " + tmpStr11, Toast.LENGTH_SHORT).show();
                 dbhelper.insertTank(new Tank(title,tmpStr11));
-                 ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
-                ((MainActivity)getActivity()).tanksListtextinch.clear();
-            ((MainActivity)getActivity()).loadlistview();
+//                 ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
+//                ((MainActivity)getActivity()).tanksListtextinch.clear();
+//            ((MainActivity)getActivity()).loadlistview();
                 savebutton.setText("Added Successfully");
                 savebutton.setEnabled(false);
 
@@ -70,9 +70,9 @@ int idradio=-1;
             {
 
                 dbhelper.insertTank(new Tank(title,code));
-                ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
-                ((MainActivity)getActivity()).tanksListtextinch.clear();
-                ((MainActivity)getActivity()).loadlistview();
+//                ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
+//                ((MainActivity)getActivity()).tanksListtextinch.clear();
+//                ((MainActivity)getActivity()).loadlistview();
                 savebutton.setText("Added Successfully");
                 savebutton.setEnabled(false);
                 //getDialog().dismiss();
@@ -86,7 +86,13 @@ int idradio=-1;
         cancelbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        getDialog().dismiss();
+
+
+//                                ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
+//                ((MainActivity)getActivity()).tanksListtextinch.clear();
+                ((MainActivity)getActivity()).loadlistview();
+
+                getDialog().dismiss();
             }
         });
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()

@@ -6,13 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".selecttank">
 
+
+
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="134dp"
         android:layout_height="120dp"
         app:srcCompat="@drawable/ic_launcher_foreground"
         tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="5dp" />
+        tools:layout_editor_absoluteY="5dp"
+        tools:ignore="MissingConstraints"/>
+
+
 
     <TextView
         android:id="@+id/textVew"
@@ -23,14 +29,16 @@
         android:layout_margin="4dp"
         android:textSize="19sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="16dp"
+        tools:ignore="MissingConstraints"/>
+
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-14dp"
-        tools:layout_editor_absoluteY="275dp">
+        tools:layout_editor_absoluteX="-58dp"
+        tools:layout_editor_absoluteY="5dp">
 
     </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>

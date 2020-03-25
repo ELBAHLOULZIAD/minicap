@@ -2,6 +2,9 @@ package com.example.database;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -9,16 +12,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.database.database.DatabaseHelper;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class selecttank extends AppCompatActivity {
     protected ListView list;
+    protected FloatingActionButton actionbutton;
     String[] names={"Name: Reno\nCapacity: 2000 Liters\nHeight: 62cm ","Name: Sintex\nCapacity: 1000 Liters\nHeight: 150cm ","Name: Loft\nCapacity: 4163 Liters\nHeight: 210cm"};
     Integer imgid[]={R.drawable.reno,R.drawable.sintex,R.drawable.loft};
     ArrayList<String> tanklist = new ArrayList<>();
@@ -26,11 +34,36 @@ static int id1=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        actionbutton = findViewById(R.id.actionbutton);
+
         setContentView(R.layout.activity_selecttank);
 
         list=findViewById(R.id.list);
         myadapter adapter = new myadapter();
         list.setAdapter(adapter);
+
+
+
+
+//        actionbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {//once insert button is clicked it runs a new fragment called insert tank frag.
+//                DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
+//
+//                List<Tank> tanks = dbHelper.getAllTanks();
+//                if(tanks.size()<1)
+//                {inserttankfrag dialog = new inserttankfrag();
+//                    dialog.show(getSupportFragmentManager(), "Insert Tank");
+//                }
+//                else
+//                    Toast.makeText(selecttank.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
+//
+//            }
+//
+//
+//        });
+
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,7 +100,37 @@ static int id1=1;
             }
         });
 
+
+
+
+
+
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {//creates the drop down menu with the item for conversion
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu2, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
+
+                List<Tank> tanks = dbHelper.getAllTanks();
+                if(tanks.size()<1)
+                {inserttankfrag dialog = new inserttankfrag();
+                    dialog.show(getSupportFragmentManager(), "Insert Tank");
+                }
+                else
+                    Toast.makeText(selecttank.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
+
+
+
+        return false;
+    }
+
 
     class myadapter extends BaseAdapter {
         @Override
@@ -99,5 +162,8 @@ static int id1=1;
 
 
         }
+
+
+
 
     }
