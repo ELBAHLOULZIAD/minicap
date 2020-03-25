@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -107,10 +108,24 @@ public class MainActivity extends AppCompatActivity  {
         selectbutton = findViewById(R.id.selectbutton);
         actionbutton2 = findViewById(R.id.actionbutton2);
 
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+//listing all tanks
+        List<Tank> tanks = dbHelper.getAllTanks();
+
+
+
+
         selectbutton.setOnClickListener(new View.OnClickListener() {
                                             @Override
-                                            public void onClick(View v) {
-                                                openactivityselect();
+                                            public void onClick(View v) {DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
+
+                                                List<Tank> tanks = dbHelper.getAllTanks();
+                                                if(tanks.size()<1)
+                                                { openactivityselect();
+                                                }
+                                                else
+                                                Toast.makeText(MainActivity.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
+
                                             }
         }
         );
@@ -118,9 +133,16 @@ public class MainActivity extends AppCompatActivity  {
         actionbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//once insert button is clicked it runs a new fragment called insert tank frag.
+                DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
 
-                inserttankfrag dialog = new inserttankfrag();
+                List<Tank> tanks = dbHelper.getAllTanks();
+                if(tanks.size()<1)
+                {inserttankfrag dialog = new inserttankfrag();
                 dialog.show(getSupportFragmentManager(), "Insert Tank");
+                     }
+                else
+                    Toast.makeText(MainActivity.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
+
             }
 
 
@@ -459,6 +481,9 @@ public class MainActivity extends AppCompatActivity  {
     public void onResume(){
         super.onResume();
         noti=1;
+
+
+
 
     }
 
