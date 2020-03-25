@@ -318,7 +318,14 @@ public class MainActivity extends AppCompatActivity  {
                 tanksListtext.add(temp);
                 tanksListtextinch.add(temp2);
                 if(((d / y) * 100<20) && noti==0 && swt==1)
-                { addNotification(tanks.get(i).getTitle());}
+                { addNotification(tanks.get(i).getTitle());
+                    if((i+1==tanks.size()))
+                    {//Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
+                        noti=1;
+                        countdowntimer.cancel();
+                        countdowntimer = new CountDownTimerClass(ref, 1000);
+                        countdowntimer.start();
+                    }}
 
             }
 
@@ -448,7 +455,12 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        noti=1;
 
+    }
 
 
 
