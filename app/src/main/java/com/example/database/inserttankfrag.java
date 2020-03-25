@@ -64,7 +64,7 @@ int idradio=-1;
 //            ((MainActivity)getActivity()).loadlistview();
                 savebutton.setText("Added Successfully");
                 savebutton.setEnabled(false);
-
+onPause();
             }
             else if(idradio==2)
             {
@@ -76,7 +76,7 @@ int idradio=-1;
                 savebutton.setText("Added Successfully");
                 savebutton.setEnabled(false);
                 //getDialog().dismiss();
-
+                onPause();
             }
        }}
         }
@@ -90,7 +90,7 @@ int idradio=-1;
 
 //                                ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
 //                ((MainActivity)getActivity()).tanksListtextinch.clear();
-                ((MainActivity)getActivity()).loadlistview();
+           //     ((MainActivity)getActivity()).loadlistview();
 
                 getDialog().dismiss();
             }

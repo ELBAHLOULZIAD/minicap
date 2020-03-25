@@ -35,7 +35,7 @@ static int id1=1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        actionbutton = findViewById(R.id.actionbutton);
+//        actionbutton = findViewById(R.id.actionbutton);
 
         setContentView(R.layout.activity_selecttank);
 
@@ -76,24 +76,31 @@ static int id1=1;
                 final String[] b = stringsArray[0].split(":");
                 AlertDialog.Builder builder = new AlertDialog.Builder((selecttank.this));
                 // DatabaseHelper dbHelper = new DatabaseHelper(this);
-                builder.setMessage("Are you sure you want to add "+b[1]+" tank").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
-                        dbHelper.insertTank(new Tank(b[1],f));
+                DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
+                List<Tank> tanks = dbHelper.getAllTanks();
+                if(tanks.size()<1) {
+                    builder.setMessage("Are you sure you want to add " + b[1] + " tank").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
+                            dbHelper.insertTank(new Tank(b[1], f));
 
 
-                        finish();  }})
-                        .setNegativeButton("No", new DialogInterface.OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int which){
-                                dialogInterface.cancel();
-                            }
-                        });
-                AlertDialog alertDialog= builder.create();
-                alertDialog.show();
+                            finish();
+                        }
+                    })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int which) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
 
-
+                }
+                else
+                    Toast.makeText(selecttank.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
 
 
 
