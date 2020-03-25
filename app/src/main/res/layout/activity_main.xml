@@ -38,7 +38,7 @@
 
 
         android:layout_marginTop="200dp"
-        android:textColor="#F80101"
+        android:textColor="@color/colorPrimary"
         android:textSize="10dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="200dp" />
@@ -47,9 +47,8 @@
         android:id="@+id/actionbutton2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="120dp"
-        android:layout_marginRight="140dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="40dp"
 
         android:foreground="@drawable/settings"
 

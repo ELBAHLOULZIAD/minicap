@@ -7,83 +7,114 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/savebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
-        android:layout_marginLeft="264dp"
-        android:layout_marginTop="348dp"
-        android:text="@string/save"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/cancelbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
-        android:layout_marginTop="348dp"
-        android:text="Cancel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/tankcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginLeft="96dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="210dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/edit_text_borders"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="number"
+        android:padding="12dp"
         android:text="Tank Height"
+        app:layout_constraintBottom_toTopOf="@+id/savebutton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tanktitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tanktitle"
+        app:layout_constraintVertical_bias="0.6" />
 
     <EditText
         android:id="@+id/tanktitle"
         android:layout_width="209dp"
         android:layout_height="51dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="86dp"
-        android:layout_marginRight="86dp"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="96dp"
         android:autofillHints=""
+        android:background="@drawable/edit_text_borders"
         android:ems="10"
         android:inputType="textPersonName"
+        android:padding="12dp"
         android:text="Tank Number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
+    <Button
+        android:id="@+id/cancelbutton"
+        android:layout_width="213dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="280dp"
+        android:layout_marginEnd="101dp"
+        android:background="@drawable/custom_buttons"
+        android:text="Cancel"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/savebutton"
+        android:layout_width="210dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="232dp"
+        android:layout_marginEnd="101dp"
+        android:background="@drawable/custom_buttons"
+        android:text="@string/save"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="365dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="222dp"
+        android:layout_height="64dp"
         android:layout_centerInParent="true"
-        android:id="@+id/radioGroup">
+        android:layout_marginStart="142dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="151dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/radio_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inches"
+            android:checked="false"
 
-            android:checked="false"/>
+            android:text="Inches" />
 
         <RadioButton
             android:id="@+id/radio_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Centimeters"
-            />
-
+            android:text="Centimeters" />
 
 
     </RadioGroup>
