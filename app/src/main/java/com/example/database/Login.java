@@ -97,6 +97,8 @@ public class Login extends AppCompatActivity {
                     progressDialog.dismiss();
                     if(counter == 0){
                         Login.setEnabled(false);
+                        Toast.makeText(Login.this, "No More Login Attempts, Please Reset Your Password", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(Login.this, ResetPassword.class));
                     }
                 }
             }
