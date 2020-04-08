@@ -23,16 +23,38 @@
         android:padding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/savebutton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tanktitle"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/macaddress"
+        android:layout_width="210dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/edit_text_borders"
+        android:ems="10"
+        android:hint="Sensor MacAddress"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:padding="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/savebutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tanktitle"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/tanktitle"
         android:layout_width="209dp"
         android:layout_height="51dp"
         android:layout_marginStart="91dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="96dp"
         android:autofillHints=""
         android:background="@drawable/edit_text_borders"
@@ -41,23 +63,9 @@
         android:inputType="textPersonName"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/cancelbutton"
-        android:layout_width="213dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="101dp"
-        android:layout_marginTop="280dp"
-        android:layout_marginEnd="101dp"
-        android:background="@drawable/custom_buttons"
-        android:text="Close"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,12 +74,28 @@
         android:layout_width="210dp"
         android:layout_height="41dp"
         android:layout_marginStart="101dp"
-        android:layout_marginTop="232dp"
+        android:layout_marginTop="268dp"
         android:layout_marginEnd="101dp"
         android:background="@drawable/custom_buttons"
         android:text="@string/save"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.004"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/cancelbutton"
+        android:layout_width="213dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="316dp"
+        android:layout_marginEnd="101dp"
+        android:background="@drawable/custom_buttons"
+        android:text="Close"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,7 +119,7 @@
         android:layout_height="64dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="142dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="151dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -118,6 +142,50 @@
 
 
     </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="117dp">
+
+        <RadioButton
+            android:id="@+id/quarter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+
+            android:text="Quarter" />
+
+        <RadioButton
+            android:id="@+id/half"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Half" />
+
+        <RadioButton
+            android:id="@+id/tquarter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+
+            android:text="3/4" />
+
+        <RadioButton
+            android:id="@+id/nonot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="off" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notification"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="72dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

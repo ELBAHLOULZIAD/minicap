@@ -12,14 +12,13 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,9 +38,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.app.NotificationManager.IMPORTANCE_HIGH;
 
@@ -56,10 +56,11 @@ public class MainActivity extends AppCompatActivity  {
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = firebaseDatabase.getReference();
+//
+ private FirebaseAuth firebaseAuth;
 
-    private FirebaseAuth firebaseAuth;
 
-    final DatabaseReference refChild = databaseReference.child("Test").child("Stream").child("String");
+   final DatabaseReference refChild = databaseReference.child("users");
 
     String stringWaterLevel;
     String intWaterLevel;
@@ -100,6 +101,30 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+       //April 7
+
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//DatabaseReference myRef = database.getReference();
+//myRef.addValueEventListener(new ValueEventListener() {
+// @Override
+// public void onDataChange(DataSnapshot dataSnapshot) {
+//    for(DataSnapshot item_snapshot:dataSnapshot.getChildren()) {
+//
+//      Log.d("item id ",item_snapshot.child("item_id").getValue().toString());
+//      Log.d("item desc",item_snapshot.child("item_desc").getValue().toString());
+//     }
+//  }
+//}
+
+        //April 7
+
+
+
+
+
+
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         textView = findViewById(R.id.textView);
@@ -119,34 +144,16 @@ public class MainActivity extends AppCompatActivity  {
                                             @Override
                                             public void onClick(View v) {DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
 
-                                                List<Tank> tanks = dbHelper.getAllTanks();
-                                                if(tanks.size()<1)
+
                                                 { openactivityselect();
                                                 }
-                                                else
-                                                Toast.makeText(MainActivity.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
+
 
                                             }
         }
         );
 
-//        actionbutton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {//once insert button is clicked it runs a new fragment called insert tank frag.
-//                DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
-//
-//                List<Tank> tanks = dbHelper.getAllTanks();
-//                if(tanks.size()<1)
-//                {inserttankfrag dialog = new inserttankfrag();
-//                dialog.show(getSupportFragmentManager(), "Insert Tank");
-//                     }
-//                else
-//                    Toast.makeText(MainActivity.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//
-//        });
+
         actionbutton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//once insert button is clicked it runs a new fragment called insert tank frag.
@@ -157,7 +164,12 @@ public class MainActivity extends AppCompatActivity  {
 
 
         });
-        loadlistview();
+
+
+
+
+
+       loadlistviews();
         countdowntimer = new CountDownTimerClass(ref, 1000);
         countdowntimer.start();
         listviewitems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -199,6 +211,15 @@ public class MainActivity extends AppCompatActivity  {
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference();
+
+
+
+
+
+
         switch (item.getItemId()) {
 
             case R.id.item1: {
@@ -231,140 +252,196 @@ public class MainActivity extends AppCompatActivity  {
             startActivity(new Intent(MainActivity.this, Login.class));
         }
 
+    protected void loadlistviews() {
+
+        refChild.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Map<String, Object> td = (HashMap<String,Object>) dataSnapshot.getValue();
+
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                    DatabaseReference objRef = refChild.child(childDataSnapshot.getKey());
+                    Map<String,Object> taskMap = new HashMap<String,Object>();
+                    //taskMap.put("is_read", "1");
+                    Log.v("Testing",""+ childDataSnapshot.getKey());
+                   if(childDataSnapshot.getKey().equals("40036145"))
+                   {DatabaseReference refChild2 = databaseReference.child("users").child(childDataSnapshot.getKey());
+                       for (DataSnapshot childDataSnapshot2 : dataSnapshot.child(childDataSnapshot.getKey()).getChildren()) {
+                           DatabaseReference objRef2 = refChild2.child(childDataSnapshot2.getKey());
+                           Map<String,Object> taskMap2 = new HashMap<String,Object>();
+                           Log.v("Testing2",""+ childDataSnapshot2.getKey());
+                           DatabaseReference refChild3 = databaseReference.child("users").child(childDataSnapshot.getKey()).child(childDataSnapshot2.getKey());
+                           for (DataSnapshot childDataSnapshot3 : dataSnapshot.child(childDataSnapshot.getKey()).child(childDataSnapshot2.getKey()).getChildren()) {
+                               DatabaseReference objRef3 = refChild3.child(childDataSnapshot3.getKey());
+                               Map<String, Object> taskMap3 = new HashMap<String, Object>();
+                               Log.v("Testing3", "" + childDataSnapshot3.getKey());
 
 
-    protected void loadlistview() {
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-//listing all tanks
-        final List<Tank> tanks = dbHelper.getAllTanks();
 
-        /** added by Osama for cloud-app connection **/
-        int check;
-        check = isOnline();
-        //Toast.makeText(this, "The connection is " + check, Toast.LENGTH_LONG).show();
-
-       // countdowntimer.cancel();
-        if (check == 1) {
-            refChild.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    stringWaterLevel = dataSnapshot.getValue(String.class);
-                    intWaterLevel = stringWaterLevel.replaceAll("[^0-9]", "");
-                    waterLevel = Integer.parseInt(intWaterLevel);
-                    tanksListtext.clear();
-                    tanksListtextinch.clear();
-
-
-
-
-                    for (int i = 0; i < tanks.size(); i++) {
-                        String temp = "";
-                        String temp2 = "";
-                        temp += tanks.get(i).getTitle() + "\n";
-                        temp2 += tanks.get(i).getTitle() + "\n";
-                        double y = Double.parseDouble(String.valueOf(tanks.get(i).getCode()));
-                        double d = ((y - waterLevel)); // added by Osama for cloud-app connection
-                        double z = y * 0.393701;
-                        temp += "The height is: " + new DecimalFormat("##.##").format(y) + "cm\n";
-                        temp2 += "The height is: " + new DecimalFormat("##.##").format(z) + "inches\n";
-                        if (d >= 0) {
-                            temp += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%";
-                            temp2 += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%";
-                        } else if (d < 0) {
-                            temp += "The level of water available is: " + 0 + "%";
-                            temp2 += "The level of water available is: " + 0 + "%";
-                        }
-                        tanksListtext.add(temp);
-                        tanksListtextinch.add(temp2);
-                    if(((d / y) * 100<percent) && noti==0 && swt==1)
-                { addNotification(tanks.get(i).getTitle());
-                    if((i+1==tanks.size()))
-                    {//Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
-                        noti=1;
-                    countdowntimer.cancel();
-                        countdowntimer = new CountDownTimerClass(ref, 1000);
-                        countdowntimer.start();
-                    }}}
-                    prev = waterLevel;
+                           }}}; //should I use setValue()...?
+                    //Log.v("Testing",""+ childDataSnapshot.getKey()); //displays the key for the node
+                    //Log.v("Testing",""+ childDataSnapshot.child().getKey());
 
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-            /** ....................................... **/
 
 
 
-            if (e==0)
-            {ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
-                listviewitems.setAdapter(arrayAdapter);}
-            if(e==1)
-            {ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
-                listviewitems.setAdapter(arrayAdapter);}
 
 
-            refresh(1000); //refresh
-
-
-        } else if (check == 0) {
-            //Toast.makeText(this, "waterlevel saved is " + prev, Toast.LENGTH_LONG).show();
-            if (prev == null)//running the app for the first time, we will assume that the sensor is reading 0
-            {
-                prev = 0;
-            }
-            tanksListtext.clear();
-            tanksListtextinch.clear();
-            for (int i = 0; i < tanks.size(); i++) {
-                String temp = "";
-                String temp2 = "";
-                temp += tanks.get(i).getTitle() + "\n";
-                temp2 += tanks.get(i).getTitle() + "\n";
-                double y = Double.parseDouble(String.valueOf(tanks.get(i).getCode()));
-                double d = ((y - prev));
-                double z = y * 0.393701;
-                temp += "The height is: " + new DecimalFormat("##.##").format(y) + "cm\n";
-                temp2 += "The height is: " + new DecimalFormat("##.##").format(z) + "inches\n";
-                if (d >= 0) {
-                    temp += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%";
-                    temp2 += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%";
-                } else if (d < 0) {
-                    temp += "The level of water available is: " + 0 + "%";
-                    temp2 += "The level of water available is: " + 0 + "%";
-                }
-
-
-                tanksListtext.add(temp);
-                tanksListtextinch.add(temp2);
-                if(((d / y) * 100<percent) && noti==0 && swt==1)
-                { addNotification(tanks.get(i).getTitle());
-                    if((i+1==tanks.size()))
-                    {//Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
-                        noti=1;
-                        countdowntimer.cancel();
-                        countdowntimer = new CountDownTimerClass(ref, 1000);
-                        countdowntimer.start();
-                    }}
-
+                Toast.makeText(MainActivity.this, "The snapshot is "+dataSnapshot.getValue(), Toast.LENGTH_SHORT).show();
+               System.out.println(dataSnapshot.getValue());
             }
 
-        if (e==0)
-        {ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
-            listviewitems.setAdapter(arrayAdapter);}
-        if(e==1)
-        {ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
-            listviewitems.setAdapter(arrayAdapter);}
-
-            refresh(1000); //refresh
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
 
 
-        }
+
+
+
+
+
 
 
     }
+
+//    protected void loadlistview() {
+//        DatabaseHelper dbHelper = new DatabaseHelper(this);
+////listing all tanks
+//        final List<Tank> tanks = dbHelper.getAllTanks();
+//
+//        /** added by Osama for cloud-app connection **/
+//        int check;
+//        check = isOnline();
+//        //Toast.makeText(this, "The connection is " + check, Toast.LENGTH_LONG).show();
+//
+//       // countdowntimer.cancel();
+//        if (check == 1) {
+//            refChild.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    stringWaterLevel = dataSnapshot.getValue(String.class);
+//                    intWaterLevel = stringWaterLevel.replaceAll("[^0-9]", "");
+//                    waterLevel = Integer.parseInt(intWaterLevel);
+//                    tanksListtext.clear();
+//                    tanksListtextinch.clear();
+//
+//
+//
+//
+//                    for (int i = 0; i < tanks.size(); i++) {
+//                        String temp = "";
+//                        String temp2 = "";
+//                        temp += tanks.get(i).getTitle() + "\n";
+//                        temp2 += tanks.get(i).getTitle() + "\n";
+//                        double y = Double.parseDouble(String.valueOf(tanks.get(i).getCode()));
+//                        double d = ((y - waterLevel)); // added by Osama for cloud-app connection
+//                        double z = y * 0.393701;
+//                        temp += "The height is: " + new DecimalFormat("##.##").format(y) + "cm\n";
+//                        temp2 += "The height is: " + new DecimalFormat("##.##").format(z) + "inches\n";
+//                        if (d >= 0) {
+//                            temp += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%";
+//                            temp2 += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%";
+//                        } else if (d < 0) {
+//                            temp += "The level of water available is: " + 0 + "%";
+//                            temp2 += "The level of water available is: " + 0 + "%";
+//                        }
+//                        tanksListtext.add(temp);
+//                        tanksListtextinch.add(temp2);
+//                    if(((d / y) * 100<percent) && noti==0 && swt==1)
+//                { addNotification(tanks.get(i).getTitle());
+//                    if((i+1==tanks.size()))
+//                    {//Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
+//                        noti=1;
+//                    countdowntimer.cancel();
+//                        countdowntimer = new CountDownTimerClass(ref, 1000);
+//                        countdowntimer.start();
+//                    }}}
+//                    prev = waterLevel;
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+//
+//            /** ....................................... **/
+//
+//
+//
+//            if (e==0)
+//            {ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
+//                listviewitems.setAdapter(arrayAdapter);}
+//            if(e==1)
+//            {ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
+//                listviewitems.setAdapter(arrayAdapter);}
+//
+//
+//            refresh(1000); //refresh
+//
+//
+//        } else if (check == 0) {
+//            //Toast.makeText(this, "waterlevel saved is " + prev, Toast.LENGTH_LONG).show();
+//            if (prev == null)//running the app for the first time, we will assume that the sensor is reading 0
+//            {
+//                prev = 0;
+//            }
+//            tanksListtext.clear();
+//            tanksListtextinch.clear();
+//            for (int i = 0; i < tanks.size(); i++) {
+//                String temp = "";
+//                String temp2 = "";
+//                temp += tanks.get(i).getTitle() + "\n";
+//                temp2 += tanks.get(i).getTitle() + "\n";
+//                double y = Double.parseDouble(String.valueOf(tanks.get(i).getCode()));
+//                double d = ((y - prev));
+//                double z = y * 0.393701;
+//                temp += "The height is: " + new DecimalFormat("##.##").format(y) + "cm\n";
+//                temp2 += "The height is: " + new DecimalFormat("##.##").format(z) + "inches\n";
+//                if (d >= 0) {
+//                    temp += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%";
+//                    temp2 += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%";
+//                } else if (d < 0) {
+//                    temp += "The level of water available is: " + 0 + "%";
+//                    temp2 += "The level of water available is: " + 0 + "%";
+//                }
+//
+//
+//                tanksListtext.add(temp);
+//                tanksListtextinch.add(temp2);
+//                if(((d / y) * 100<percent) && noti==0 && swt==1)
+//                { addNotification(tanks.get(i).getTitle());
+//                    if((i+1==tanks.size()))
+//                    {//Toast.makeText(getApplicationContext(), "I am here", Toast.LENGTH_LONG).show();
+//                        noti=1;
+//                        countdowntimer.cancel();
+//                        countdowntimer = new CountDownTimerClass(ref, 1000);
+//                        countdowntimer.start();
+//                    }}
+//
+//            }
+//
+//        if (e==0)
+//        {ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tanksListtext);
+//            listviewitems.setAdapter(arrayAdapter);}
+//        if(e==1)
+//        {ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, tanksListtextinch);
+//            listviewitems.setAdapter(arrayAdapter);}
+//
+//            refresh(1000); //refresh
+//
+//
+//        }
+//
+//
+//    }
 
 
     public int isOnline() {
@@ -434,18 +511,20 @@ public class MainActivity extends AppCompatActivity  {
 
 
     //refresh function
-    private void refresh(int milliseconds) {
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                loadlistview();
 
-            }
-        };
-        handler.postDelayed(runnable, milliseconds);
 
-    }
+//    private void refresh(int milliseconds) {
+//        final Handler handler = new Handler();
+//        final Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                loadlistview();
+//
+//            }
+//        };
+//        handler.postDelayed(runnable, milliseconds);
+//
+//    }
 
 
     public class CountDownTimerClass extends CountDownTimer {

@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "1014532259745",
+    "firebase_url": "https://db-water-level-indicator.firebaseio.com",
+    "project_id": "db-water-level-indicator",
+    "storage_bucket": "db-water-level-indicator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014532259745:android:0997473a74a6e0468c95e0",
+        "android_client_info": {
+          "package_name": "com.example.database"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014532259745-8jmptjl63bv68rk1chh6uruo1lkpsv76.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.database",
+            "certificate_hash": "9df527bf89c594f5e6f0852fc4c894a93747fc72"
+          }
+        },
+        {
+          "client_id": "1014532259745-4567uuruhd8e27gggva4s93hkrte3kjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.database",
+            "certificate_hash": "e6296342170ad9dff05f822a16c94e60913d8bf9"
+          }
+        },
+        {
+          "client_id": "1014532259745-d8ek3j25a3rfesjv86om7gnbibaps7o3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADeEtkdHjPMG_sbiRU4ZsUFu9NkrRE7UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014532259745-d8ek3j25a3rfesjv86om7gnbibaps7o3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014532259745:android:40af90181094fdab8c95e0",
+        "android_client_info": {
+          "package_name": "com.example.notif"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014532259745-a4qado71lvslkcvph025vpccq163nm4e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.notif",
+            "certificate_hash": "9df527bf89c594f5e6f0852fc4c894a93747fc72"
+          }
+        },
+        {
+          "client_id": "1014532259745-d8ek3j25a3rfesjv86om7gnbibaps7o3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADeEtkdHjPMG_sbiRU4ZsUFu9NkrRE7UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014532259745-d8ek3j25a3rfesjv86om7gnbibaps7o3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

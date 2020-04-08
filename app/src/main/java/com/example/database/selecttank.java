@@ -2,6 +2,7 @@ package com.example.database;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.database.database.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +36,7 @@ public class selecttank extends AppCompatActivity {
     String[] names={"Name: Reno\nCapacity: 2000 Liters\nHeight: 62cm ","Name: Sintex\nCapacity: 1000 Liters\nHeight: 150cm ","Name: Loft\nCapacity: 4163 Liters\nHeight: 210cm"};
     Integer imgid[]={R.drawable.reno,R.drawable.sintex,R.drawable.loft};
     ArrayList<String> tanklist = new ArrayList<>();
+    int selected;
 static int id1=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +53,7 @@ static int id1=1;
 
 
 
-//        actionbutton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {//once insert button is clicked it runs a new fragment called insert tank frag.
-//                DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
-//
-//                List<Tank> tanks = dbHelper.getAllTanks();
-//                if(tanks.size()<1)
-//                {inserttankfrag dialog = new inserttankfrag();
-//                    dialog.show(getSupportFragmentManager(), "Insert Tank");
-//                }
-//                else
-//                    Toast.makeText(selecttank.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//
-//        });
+
 
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,22 +65,71 @@ static int id1=1;
 
                 final String f= stringsArray[2].replaceAll("[^0-9]", "");
                 final String[] b = stringsArray[0].split(":");
-                AlertDialog.Builder builder = new AlertDialog.Builder((selecttank.this));
+               // AlertDialog.Builder builder = new AlertDialog.Builder((selecttank.this)).setTitle("Sensor MC").setMessage("Enter MCAd");
+
                 // DatabaseHelper dbHelper = new DatabaseHelper(this);
                 DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
                 List<Tank> tanks = dbHelper.getAllTanks();
-                if(tanks.size()<1) {
-                    builder.setMessage("Are you sure you want to add " + b[1] + " tank").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                final EditText input = new EditText(selecttank.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                final String[] items = {"Quarter","Half","3/4","OFF"};
+                int checkedItem = 3;
+
+                //AlertDialog.setIcon(R.drawable.key);
+                AlertDialog.Builder builder = new AlertDialog.Builder((selecttank.this)).setView(input).setTitle("Please Enter MacAddress and Set Notification").setSingleChoiceItems(items,checkedItem, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Toast.makeText(ListAlertDialogActivity.this, "Position: " + which + " Value: " + listItems[which], Toast.LENGTH_LONG).show();
+                                if(items[which]=="Quarter")
+                                {selected =1;}
+                                if(items[which]=="Half")
+                                {selected =2;}
+                                if(items[which]=="3/4")
+                                {selected =3;}
+                                if(items[which]=="OFF")
+                                {selected =4;}
+
+                            }
+                        });
+
+                builder//.setMessage("Are you sure you want to add " + b[1] + " tank")
+                            .setCancelable(false).setPositiveButton("Add", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
-                            dbHelper.insertTank(new Tank(b[1], f));
+
+                            if(!input.getText().toString().equals("")) {
+                                DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
+                                dbHelper.insertTank(new Tank(b[1], f));
+                                DatabaseReference mDatabase;
+                                mDatabase = FirebaseDatabase.getInstance().getReference();
+                                double r = Double.parseDouble(f);
+                                //mDatabase.child("users").child("Client_ID").child("Loft").child("Height").setValue(1000);
+                                mDatabase.child("users").child("40036145").child(b[1]).child("Height").setValue(r);
+                                mDatabase.child("users").child("40036145").child(b[1]).child("Readings").setValue(0);
+                                mDatabase.child("users").child("40036145").child(b[1]).child("notification").setValue(selected);
+                                mDatabase.child("users").child("40036145").child(b[1]).child("macaddress").setValue(input.getText().toString());
+                                String token = FirebaseInstanceId.getInstance().getToken();
+
+                                Log.d("Refreshed token: ", token);
+                                // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
+                                mDatabase.child("users").child("40036145").child(b[1]).child("token").setValue(token);
 
 
-                            finish();
+                                finish();
+                            }
+                            else
+                            {
+                                Toast.makeText(selecttank.this, "Please fill the Sensor McAddress", Toast.LENGTH_LONG).show();
+                            }
+
+                            onPause();
                         }
+
                     })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int which) {
                                     dialogInterface.cancel();
@@ -98,9 +138,8 @@ static int id1=1;
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
 
-                }
-                else
-                    Toast.makeText(selecttank.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
+
+
 
 
 
@@ -125,13 +164,10 @@ static int id1=1;
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
 
-                List<Tank> tanks = dbHelper.getAllTanks();
-                if(tanks.size()<1)
-                {inserttankfrag dialog = new inserttankfrag();
+
+                inserttankfrag dialog = new inserttankfrag();
                     dialog.show(getSupportFragmentManager(), "Insert Tank");
-                }
-                else
-                    Toast.makeText(selecttank.this, " The app works for one tank at the right time " , Toast.LENGTH_LONG).show();
+
 
 
 
