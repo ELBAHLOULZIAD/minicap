@@ -23,20 +23,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.database.database.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class selecttank extends AppCompatActivity {
     protected ListView list;
     protected FloatingActionButton actionbutton;
-    String[] names={"Name: Reno\nCapacity: 2000 Liters\nHeight: 62cm ","Name: Sintex\nCapacity: 1000 Liters\nHeight: 150cm ","Name: Loft\nCapacity: 4163 Liters\nHeight: 210cm"};
+    String[] names={"Name:Reno\nCapacity:2000Liters\nHeight:62cm","Name:Sintex\nCapacity:1000Liters\nHeight:150cm","Name:Loft\nCapacity:4163Liters\nHeight:210cm"};
     Integer imgid[]={R.drawable.reno,R.drawable.sintex,R.drawable.loft};
     ArrayList<String> tanklist = new ArrayList<>();
     int selected;
+
 static int id1=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +54,6 @@ static int id1=1;
         list.setAdapter(adapter);
 
 
-
-
-
-
-
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -68,8 +66,8 @@ static int id1=1;
                // AlertDialog.Builder builder = new AlertDialog.Builder((selecttank.this)).setTitle("Sensor MC").setMessage("Enter MCAd");
 
                 // DatabaseHelper dbHelper = new DatabaseHelper(this);
-                DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
-                List<Tank> tanks = dbHelper.getAllTanks();
+                //DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
+              //  List<Tank> tanks = dbHelper.getAllTanks();
                 final EditText input = new EditText(selecttank.this);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -101,31 +99,71 @@ static int id1=1;
                         public void onClick(DialogInterface dialog, int which) {
 
                             if(!input.getText().toString().equals("")) {
-                                DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
-                                dbHelper.insertTank(new Tank(b[1], f));
-                                DatabaseReference mDatabase;
-                                mDatabase = FirebaseDatabase.getInstance().getReference();
-                                double r = Double.parseDouble(f);
-                                //mDatabase.child("users").child("Client_ID").child("Loft").child("Height").setValue(1000);
-                                mDatabase.child("users").child("40036145").child(b[1]).child("Height").setValue(r);
-                                mDatabase.child("users").child("40036145").child(b[1]).child("Readings").setValue(0);
-                                mDatabase.child("users").child("40036145").child(b[1]).child("notification").setValue(selected);
-                                mDatabase.child("users").child("40036145").child(b[1]).child("macaddress").setValue(input.getText().toString());
-                                String token = FirebaseInstanceId.getInstance().getToken();
-
-                                Log.d("Refreshed token: ", token);
-                                // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
-                                mDatabase.child("users").child("40036145").child(b[1]).child("token").setValue(token);
+//                                DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
+//                                dbHelper.insertTank(new Tank(b[1], f));
 
 
-                                finish();
+
+
+         /////////////////////////////////////
+                                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                                rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        if (snapshot.child("users").child(MainActivity.name).hasChild(b[1])) {
+                                            Toast.makeText(selecttank.this, "Tank already Exists", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+
+                                            DatabaseReference mDatabase;
+                                            mDatabase = FirebaseDatabase.getInstance().getReference();
+                                            double r = Double.parseDouble(f);
+                                            //mDatabase.child("users").child("Client_ID").child("Loft").child("Height").setValue(1000);
+                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("Height").setValue(r);
+                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("Readings").setValue(0);
+                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("notification").setValue(selected);
+                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("macaddress").setValue(input.getText().toString());
+                                            String token = FirebaseInstanceId.getInstance().getToken();
+
+                                            Log.d("Refreshed token: ", token);
+                                            // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
+                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("token").setValue(token);
+                                            Toast.makeText(selecttank.this, "The tank is added successfully", Toast.LENGTH_LONG).show();
+
+                                        }
+
+                                    }
+                                        @Override
+                                        public void onCancelled (@NonNull DatabaseError
+                                        databaseError){
+
+                                        }
+
+                                    });
+
+
+
+
+
+/////////////////////////////
+
+
+
+
                             }
+
+
+
+
+
+
+
                             else
                             {
                                 Toast.makeText(selecttank.this, "Please fill the Sensor McAddress", Toast.LENGTH_LONG).show();
                             }
 
-                            onPause();
+
                         }
 
                     })
@@ -207,6 +245,50 @@ static int id1=1;
         }
 
 
-
+//    public void checktank(final String tankname) {
+//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//        final DatabaseReference databaseReference = firebaseDatabase.getReference();
+//        final DatabaseReference refChild = databaseReference.child("users");
+//        refChild.addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                Map<String, Object> td = (HashMap<String, Object>) dataSnapshot.getValue();
+//                int p=0;
+//                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+//                    DatabaseReference objRef = refChild.child(childDataSnapshot.getKey());
+//                    Map<String, Object> taskMap = new HashMap<String, Object>();
+//                    //taskMap.put("is_read", "1");
+//                    Log.v("Testing", "" + childDataSnapshot.getKey());
+//                    if (childDataSnapshot.getKey().equalsIgnoreCase(MainActivity.name)) {
+//                        DatabaseReference refChild2 = databaseReference.child("users").child(childDataSnapshot.getKey());
+//                        for (DataSnapshot childDataSnapshot2 : dataSnapshot.child(childDataSnapshot.getKey()).getChildren()) {
+//                            DatabaseReference objRef2 = refChild2.child(childDataSnapshot2.getKey());
+//                            Map<String, Object> taskMap2 = new HashMap<String, Object>();
+//                            Log.v("Testing2", "" + childDataSnapshot2.getKey());
+//                            Log.v("Tankname", "" + tankname);
+//                            DatabaseReference refChild3 = databaseReference.child("users").child(childDataSnapshot.getKey()).child(childDataSnapshot2.getKey());
+//                            if (childDataSnapshot2.getKey().equalsIgnoreCase(tankname))
+//                            {n=1;
+//                                p=1;
+//                                Log.v("valueofnhere is", "" +n);}
+//
+//                        }
+//                    }
+//
+//                    if(p==0)
+//                        n=0;}
+//                Log.v("valueofnbefore is", "" +n);;}
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//
+//        });
+//
+//
+//    }
 
     }

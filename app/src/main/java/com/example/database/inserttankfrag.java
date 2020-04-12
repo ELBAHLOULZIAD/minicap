@@ -8,14 +8,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.database.database.DatabaseHelper;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 public class inserttankfrag extends DialogFragment {
@@ -34,6 +38,7 @@ public class inserttankfrag extends DialogFragment {
 
 int idradio=-1;
     int idradio2=-1;
+    int n=-1;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // return super.onCreateView(inflater, container, savedInstanceState);
@@ -49,77 +54,112 @@ int idradio=-1;
 
 
         savebutton.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
+         @Override
+        public void onClick(View v) {
 
-        String title = tanktitle.getText().toString();
+        final String title = tanktitle.getText().toString();
         String code = tankcode.getText().toString();
-        String mac = macaddress.getText().toString();
+        final String mac = macaddress.getText().toString();
         DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
+
       //  Toast.makeText(getActivity(), "the radio value before if " + idradio, Toast.LENGTH_SHORT).show();
-        if (!(title.equals("") || code.equals("")|| code.equals("0")))
-        {
-
-            { if(idradio>0)
-            { if (idradio==1)
-            {double m;
-            double r = Double.parseDouble(String.valueOf(code));
-                m=r*2.14;
-                String tmpStr11 = String.valueOf(m);
-               // Toast.makeText(getActivity(), "the tank height in Centim is " + tmpStr11, Toast.LENGTH_SHORT).show();
-                dbhelper.insertTank(new Tank(title,tmpStr11));
-                DatabaseReference mDatabase;
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-
-                //mDatabase.child("users").child("Client_ID").child("Loft").child("Height").setValue(1000);
-                mDatabase.child("users").child("40036145").child(title).child("Height").setValue(m);
-                mDatabase.child("users").child("40036145").child(title).child("Readings").setValue(0);
-                mDatabase.child("users").child("40036145").child(title).child("notification").setValue(idradio2);
-                mDatabase.child("users").child("40036145").child(title).child("macaddress").setValue(mac);
-                String token = FirebaseInstanceId.getInstance().getToken();
-
-                Log.d("Refreshed token: ", token);
-               // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
-                mDatabase.child("users").child("40036145").child(title).child("token").setValue(token);
+        if (!(title.equals("") || code.equals("")|| code.equals("0"))) {
 
 
+                if (idradio > 0) {
+                    if (idradio == 1) {
+                        final double m;
+                        double r = Double.parseDouble(String.valueOf(code));
+                        m = r * 2.14;
+                        String tmpStr11 = String.valueOf(m);
+                        // Toast.makeText(getActivity(), "the tank height in Centim is " + tmpStr11, Toast.LENGTH_SHORT).show();
+                        dbhelper.insertTank(new Tank(title, tmpStr11));
+                        final DatabaseReference mDatabase;
+                        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-//                 ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
-//                ((MainActivity)getActivity()).tanksListtextinch.clear();
-//            ((MainActivity)getActivity()).loadlistview();
-                savebutton.setText("Added Successfully");
-                savebutton.setEnabled(false);
-            onPause();
+                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                if (snapshot.child("users").child(MainActivity.name).hasChild(title)) {
+                                    Toast.makeText(getActivity(), "Tank already Exists", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    mDatabase.child("users").child((MainActivity.name)).child(title).child("Height").setValue(m);
+                                    mDatabase.child("users").child(MainActivity.name).child(title).child("Readings").setValue(0);
+                                    mDatabase.child("users").child(MainActivity.name).child(title).child("notification").setValue(idradio2);
+                                    mDatabase.child("users").child(MainActivity.name).child(title).child("macaddress").setValue(mac);
+                                    String token = FirebaseInstanceId.getInstance().getToken();
+                                    Log.v("im reading", "" + MainActivity.name);
+                                    Log.d("Refreshed token: ", token);
+                                    // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
+                                    mDatabase.child("users").child(MainActivity.name).child(title).child("token").setValue(token);
+
+
+                                    savebutton.setText("Added Successfully");
+                                    savebutton.setEnabled(false);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        onPause();
+                    }
+
+
+
+
+
+            else if (idradio == 2) {
+
+                        final double r = Double.parseDouble(String.valueOf(code));
+
+
+                        final DatabaseReference mDatabase;
+                        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                if (snapshot.child("users").child(MainActivity.name).hasChild(title)) {
+                                    Toast.makeText(getActivity(), "Tank already Exists", Toast.LENGTH_SHORT).show();
+                                } else {//mDatabase.child("users").child("Client_ID").child("Loft").child("Height").setValue(1000);
+                                    mDatabase.child("users").child(MainActivity.name).child(title).child("Height").setValue(r);
+                                    mDatabase.child("users").child(MainActivity.name).child(title).child("Readings").setValue(0);
+                                    mDatabase.child("users").child(MainActivity.name).child(title).child("notification").setValue(idradio2);
+                                    mDatabase.child("users").child(MainActivity.name).child(title).child("macaddress").setValue(mac);
+                                    String token = FirebaseInstanceId.getInstance().getToken();
+
+                                    Log.d("Refreshed token: ", token);
+                                    // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
+                                    mDatabase.child("users").child(MainActivity.name).child(title).child("token").setValue(token);
+
+                                    savebutton.setText("Added Successfully");
+                                    savebutton.setEnabled(false);
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        onPause();
+                    }
+
+
+                }
+
+
             }
-            else if(idradio==2)
-            {
-                double r = Double.parseDouble(String.valueOf(code));
-                dbhelper.insertTank(new Tank(title,code));
-//                ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
-//                ((MainActivity)getActivity()).tanksListtextinch.clear();
-//                ((MainActivity)getActivity()).loadlistview();
 
-                DatabaseReference mDatabase;
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-
-                //mDatabase.child("users").child("Client_ID").child("Loft").child("Height").setValue(1000);
-                mDatabase.child("users").child("40036145").child(title).child("Height").setValue(r);
-                mDatabase.child("users").child("40036145").child(title).child("Readings").setValue(0);
-                mDatabase.child("users").child("40036145").child(title).child("notification").setValue(idradio2);
-                mDatabase.child("users").child("40036145").child(title).child("macaddress").setValue(mac);
-                String token = FirebaseInstanceId.getInstance().getToken();
-
-                Log.d("Refreshed token: ", token);
-                // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
-                mDatabase.child("users").child("40036145").child(title).child("token").setValue(token);
-
-                savebutton.setText("Added Successfully");
-                savebutton.setEnabled(false);
-                //getDialog().dismiss();
-                onPause();
-            }
-       }}
-        }
 }
 
 });
@@ -128,9 +168,7 @@ int idradio=-1;
             public void onClick(View v) {
 
 
-//                                ((MainActivity)getActivity()).tanksListtext.clear();//clears the array so it wont be repeated
-//                ((MainActivity)getActivity()).tanksListtextinch.clear();
-           //     ((MainActivity)getActivity()).loadlistview();
+
 
                 getDialog().dismiss();
             }
@@ -182,5 +220,12 @@ int idradio=-1;
         });
     return view;
     }
+
+
+
+
+
+
+
 
 }

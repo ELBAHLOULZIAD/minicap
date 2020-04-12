@@ -1,16 +1,18 @@
 package com.example.database;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -87,6 +89,15 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
+
+                    SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.profilefile), Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    String []quest=Name.getText().toString().split("@");
+                   String f=quest[1].replace(".","");
+                    String ans=quest[0]+f;
+                    editor.putString(getString(R.string.profilename), ans);
+                    editor.apply();
+
                     progressDialog.dismiss();
                     //Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                     checkEmailVerification();
@@ -118,5 +129,21 @@ private void checkEmailVerification(){
             firebaseAuth.signOut();
         }
 }
+
+//    protected void onStart() {
+//        super.onStart();
+//
+//        //opens the shared preference
+//        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.profilefile), Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString(getString(R.string.profilename), Name.getText().toString());
+//        editor.apply();
+//
+//
+//
+//    }
+
+
+
 
 }

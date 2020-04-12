@@ -42,15 +42,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ListView
-        android:id="@+id/listviewitems"
-        android:layout_width="412dp"
-        android:layout_height="520dp"
-        android:cacheColorHint="#03FFFFFF"
-        android:textSize="8sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-4dp">
-
-    </ListView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
