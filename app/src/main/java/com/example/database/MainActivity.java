@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -30,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -315,5 +317,9 @@ SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.pr
     }
 
 
+    public void open(View view){
+         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.accuweather.com/en/world-weather"));
+         startActivity(browserIntent);
+    }
 
 }
