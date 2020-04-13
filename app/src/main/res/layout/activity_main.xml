@@ -42,8 +42,8 @@
         android:layout_marginTop="200dp"
         android:textColor="@color/colorPrimary"
         android:textSize="10dp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="200dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -57,8 +57,8 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="271dp"
-        android:layout_height="65dp"
+        android:layout_width="328dp"
+        android:layout_height="59dp"
         android:background="@drawable/custom_buttons"
         android:onClick="open"
         android:text="Check The Weather Forecast"
