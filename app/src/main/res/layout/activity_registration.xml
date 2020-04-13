@@ -82,6 +82,7 @@
         android:layout_height="49dp"
         android:background="@drawable/custom_buttons"
         android:text="Register"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
