@@ -49,12 +49,6 @@ public class Login extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private TextView forgotPassword;
     private CallbackManager mCallbackManager;
-    private LoginButton loginButton;
-    private FirebaseAuth.AuthStateListener authStateListener;
-    private AccessTokenTracker accessTokenTracker;
-    private static final String TAG= "FacebookAuthentication";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,50 +65,9 @@ public class Login extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        final FirebaseUser user = firebaseAuth.getCurrentUser();
 
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        loginButton=findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email","public_profile");
-        mCallbackManager=CallbackManager.Factory.create();
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG,"onSuccess" + loginResult);
-                handleFacebookToken(loginResult.getAccessToken());
-            }
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "onCancel");
-            }
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG,"onError"+ error);
-            }
-        });
-
-
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                if(currentAccessToken == null){
-                    firebaseAuth.signOut();
-                }
-            }
-        };
-
-        authStateListener= new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user=firebaseAuth.getCurrentUser();
-                if(user != null){
-                    finish();
-                    startActivity(new Intent(Login.this, MainActivity.class));
-                }
-
-            }
-        };
 
         if(user != null){
             finish();
@@ -207,53 +160,4 @@ private void checkEmailVerification(){
 //
 //
 //    }
-
-
-private void handleFacebookToken (AccessToken token){
-
-    Log.d(TAG, "handleFacebookToken" + token);
-    AuthCredential credential= FacebookAuthProvider.getCredential(token.getToken());
-    firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-        @Override
-        public void onComplete(@NonNull Task<AuthResult> task) {
-            if(task.isSuccessful()){
-                Log.d(TAG,"sign in with Credential: Successful");
-                FirebaseUser user;
-                user = firebaseAuth.getCurrentUser();
-                updateUI(user);
-            } else {
-                Log.d(TAG, "Sign in Failed", task.getException());
-                Toast.makeText(Login.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                updateUI(null);
-            }
-        }
-    });
-}
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void updateUI (FirebaseUser user){
-        if(user !=null){
-            startActivity(new Intent(Login.this, MainActivity.class));
-        }
-        else {
-            Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
-    }
-    @Override
-    protected void onStop(){
-        super.onStop();
-        firebaseAuth.removeAuthStateListener(authStateListener);
-    }
-
-
 }
