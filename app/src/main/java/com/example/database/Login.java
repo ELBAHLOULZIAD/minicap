@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
+
     private EditText Name;
     private EditText Password;
     private TextView Info;
