@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class selecttank extends AppCompatActivity {
     protected ListView list;
     protected FloatingActionButton actionbutton;
-    String[] names={"Name:Reno\nCapacity:2000Liters\nHeight:62cm","Name:Sintex\nCapacity:1000Liters\nHeight:150cm","Name:Loft\nCapacity:4163Liters\nHeight:210cm"};
+    String[] names={"Name: Reno\nCapacity: 2000 Liters\nHeight: 62cm","Name: Sintex\nCapacity: 1000 Liters\nHeight: 150cm","Name: Loft\nCapacity: 4163 Liters\nHeight: 210cm"};
     Integer imgid[]={R.drawable.reno,R.drawable.sintex,R.drawable.loft};
     ArrayList<String> tanklist = new ArrayList<>();
     int selected;
@@ -78,21 +78,21 @@ static int id1=1;
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 input.setLayoutParams(lp);
-                final String[] items = {"Quarter","Half","3/4","OFF"};
+                final String[] items = {"25% Left in the Tank","50% Left in the Tank","75% left in the Tank","No Notification"};
                 int checkedItem = 3;
 
                 //AlertDialog.setIcon(R.drawable.key);
-                AlertDialog.Builder builder = new AlertDialog.Builder((selecttank.this)).setView(input).setTitle("Please Enter MacAddress and Set Notification").setSingleChoiceItems(items,checkedItem, new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder((selecttank.this)).setView(input).setTitle("Please Enter MacAddress and Set Notification Setting").setSingleChoiceItems(items,checkedItem, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //Toast.makeText(ListAlertDialogActivity.this, "Position: " + which + " Value: " + listItems[which], Toast.LENGTH_LONG).show();
-                                if(items[which]=="Quarter")
+                                if(items[which]=="25% Left in the Tank")
                                 {selected =1;}
-                                if(items[which]=="Half")
+                                if(items[which]=="50% Left in the Tank")
                                 {selected =2;}
-                                if(items[which]=="3/4")
+                                if(items[which]=="75% left in the Tank")
                                 {selected =3;}
-                                if(items[which]=="OFF")
+                                if(items[which]=="No Notification")
                                 {selected =4;}
 
                             }
@@ -196,7 +196,7 @@ static int id1=1;
 
                             else
                             {
-                                Toast.makeText(selecttank.this, "Please fill the Sensor McAddress", Toast.LENGTH_LONG).show();
+                                Toast.makeText(selecttank.this, "Please fill the Sensor MacAddress", Toast.LENGTH_LONG).show();
                             }
 
 

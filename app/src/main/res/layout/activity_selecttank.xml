@@ -19,18 +19,19 @@
         tools:ignore="MissingConstraints"/>
 
 
-
     <TextView
         android:id="@+id/textVew"
-        android:layout_width="178dp"
-        android:layout_height="101dp"
-        android:textColor="@color/colorPrimary"
-        android:padding="3dp"
+        android:layout_width="221dp"
+        android:layout_height="111dp"
         android:layout_margin="4dp"
+        android:padding="3dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
         android:textSize="19sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        tools:layout_editor_absoluteY="16dp"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="16dp" />
 
 
     <ListView
