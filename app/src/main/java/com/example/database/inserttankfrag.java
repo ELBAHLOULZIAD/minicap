@@ -1,7 +1,6 @@
 package com.example.database;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.database.database.DatabaseHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,7 +58,7 @@ int idradio=-1;
         final String title = tanktitle.getText().toString();
         String code = tankcode.getText().toString();
         final String mac = macaddress.getText().toString();
-        DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
+
 
       //  Toast.makeText(getActivity(), "the radio value before if " + idradio, Toast.LENGTH_SHORT).show();
         if (!(title.equals("") || code.equals("")|| code.equals("0"))) {
@@ -73,7 +71,7 @@ int idradio=-1;
                         m = r * 2.14;
                         String tmpStr11 = String.valueOf(m);
                         // Toast.makeText(getActivity(), "the tank height in Centim is " + tmpStr11, Toast.LENGTH_SHORT).show();
-                        dbhelper.insertTank(new Tank(title, tmpStr11));
+
                         final DatabaseReference mDatabase;
                         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -81,16 +79,16 @@ int idradio=-1;
                         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot snapshot) {
-                                if (snapshot.child("users").child(MainActivity.name).hasChild(title)) {
-                                    Toast.makeText(getActivity(), "Tank already Exists", Toast.LENGTH_SHORT).show();
+                                if (snapshot.child("users").child(MainActivity.name).hasChild(title)&&(mac.equals(""))) {
+                                    Toast.makeText(getActivity(), "Tank is not added, Tank already Exists or Mac Address is missed", Toast.LENGTH_LONG).show();
                                 } else {
                                     mDatabase.child("users").child((MainActivity.name)).child(title).child("Height").setValue(m);
                                     mDatabase.child("users").child(MainActivity.name).child(title).child("Readings").setValue(0);
                                     mDatabase.child("users").child(MainActivity.name).child(title).child("notification").setValue(idradio2);
                                     mDatabase.child("users").child(MainActivity.name).child(title).child("macaddress").setValue(mac);
                                     String token = FirebaseInstanceId.getInstance().getToken();
-                                    Log.v("im reading", "" + MainActivity.name);
-                                    Log.d("Refreshed token: ", token);
+                               //     Log.v("im reading", "" + MainActivity.name);
+                                  //  Log.d("Refreshed token: ", token);
                                     // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
                                     mDatabase.child("users").child(MainActivity.name).child(title).child("token").setValue(token);
 
@@ -126,8 +124,8 @@ int idradio=-1;
 
                             @Override
                             public void onDataChange(DataSnapshot snapshot) {
-                                if (snapshot.child("users").child(MainActivity.name).hasChild(title)) {
-                                    Toast.makeText(getActivity(), "Tank already Exists", Toast.LENGTH_SHORT).show();
+                                if (snapshot.child("users").child(MainActivity.name).hasChild(title)&&(mac.equals(""))) {
+                                    Toast.makeText(getActivity(), "Tank is not added, Tank already Exists or Mac Address is missed", Toast.LENGTH_LONG).show();
                                 } else {//mDatabase.child("users").child("Client_ID").child("Loft").child("Height").setValue(1000);
                                     mDatabase.child("users").child(MainActivity.name).child(title).child("Height").setValue(r);
                                     mDatabase.child("users").child(MainActivity.name).child(title).child("Readings").setValue(0);
@@ -135,7 +133,7 @@ int idradio=-1;
                                     mDatabase.child("users").child(MainActivity.name).child(title).child("macaddress").setValue(mac);
                                     String token = FirebaseInstanceId.getInstance().getToken();
 
-                                    Log.d("Refreshed token: ", token);
+                                   // Log.d("Refreshed token: ", token);
                                     // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
                                     mDatabase.child("users").child(MainActivity.name).child(title).child("token").setValue(token);
 

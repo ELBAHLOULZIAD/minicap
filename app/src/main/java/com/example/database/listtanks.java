@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,11 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class listtanks extends AppCompatActivity {
-    protected ListView listviewitems;//listview to list all tanks
+    public ListView listviewitems;//listview to list all tanks
     ArrayList<String> tanksListtext = new ArrayList<>();//array to list tanks in cm's
     ArrayList<String> tanksListtextinch = new ArrayList<>();//array to list tanks in inches
 
@@ -63,69 +62,78 @@ public class listtanks extends AppCompatActivity {
     }
 
     protected void loadlistviews() {
+        tanksListtext.clear();
+        tanksListtextinch.clear();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child("users").child(MainActivity.name).getKey();
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //snapshot.child("users").child(MainActivity.name).getChildren().toString() ;
 
-        try {
-            tanksListtext.clear();
-            tanksListtextinch.clear();
-            refChild.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                Toast.makeText(listtanks.this, "snashot" + snapshot, Toast.LENGTH_SHORT).show();
+                //Log.v("snashot", "" + snapshot.child("users").child(MainActivity.name).getChildren() );
+                Log.v("snano", "" + snapshot.child("users").child(MainActivity.name).getValue());
+                //  Log.v("snano", "" + snapshot.getValue().toString());
 
-                    Map<String, Object> td = (HashMap<String, Object>) dataSnapshot.getValue();
+//                 snapshot.child("users").child(MainActivity.name).getValue().toString();
+                for (DataSnapshot childDataSnapshot : snapshot.child("users").child(MainActivity.name).getChildren()) {
 
-                    for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                        DatabaseReference objRef = refChild.child(childDataSnapshot.getKey());
-                        Map<String, Object> taskMap = new HashMap<String, Object>();
-                        //taskMap.put("is_read", "1");
-                        Log.v("Testing", "" + childDataSnapshot.getKey());
-                        if (childDataSnapshot.getKey().equals(MainActivity.name)) {
-                            DatabaseReference refChild2 = databaseReference.child("users").child(childDataSnapshot.getKey());
-                            for (DataSnapshot childDataSnapshot2 : dataSnapshot.child(childDataSnapshot.getKey()).getChildren()) {
-                                DatabaseReference objRef2 = refChild2.child(childDataSnapshot2.getKey());
-                                Map<String, Object> taskMap2 = new HashMap<String, Object>();
-                                Log.v("Testing2", "" + childDataSnapshot2.getKey());
-                                DatabaseReference refChild3 = databaseReference.child("users").child(childDataSnapshot.getKey()).child(childDataSnapshot2.getKey());
-                                // for (DataSnapshot childDataSnapshot3 : dataSnapshot.child(childDataSnapshot.getKey()).child(childDataSnapshot2.getKey()).getChildren()) {
-//                               DatabaseReference objRef3 = refChild3.child(childDataSnapshot3.getKey());
-//                               Map<String, Object> taskMap3 = new HashMap<String, Object>();
-//                               Log.v("Testing3", "" + childDataSnapshot3.getKey());
-                                String height = childDataSnapshot2.child("Height").getValue().toString();
-                                String readings = childDataSnapshot2.child("Readings").getValue().toString();
-                                String notificat = childDataSnapshot2.child("notification").getValue().toString();
-                                Log.v("height", "The Tank name is " + childDataSnapshot2.getKey() + " height is " + height + ",Reading is " + readings + ", Notification is" + notificat + "\n");
+                    Log.v("name of tank", "" + childDataSnapshot.getKey());
+                    Log.v("snashot", "" + childDataSnapshot.child("Height").getValue().toString());
+                    Log.v("notificat", "" + childDataSnapshot.child("notification").getValue().toString());
 
-                               // firebaseDatabase.getReference().child("users").child(Mainname).child("ziad").removeValue();
-//                               Log.v("Testing3", "" + firebaseDatabase.getReference(childDataSnapshot2.getKey()).toString());
-                                waterLevel = Integer.parseInt(readings);
-                                String temp = "";
-                                String temp2 = "";
-                                temp += childDataSnapshot2.getKey() + "\n";
-                                temp2 += childDataSnapshot2.getKey() + "\n";
-                                double y = Double.parseDouble(String.valueOf(height));
-                                double d = ((y - waterLevel));
-                                double z = y * 0.393701;
-                                temp += "The height is: " + new DecimalFormat("##.##").format(y) + "cm\n";
+                    Log.v("readings", "" + childDataSnapshot.child("Readings").getValue().toString());
 
-                                temp2 += "The height is: " + new DecimalFormat("##.##").format(z) + "inches\n";
-                                if (d >= 0) {
-                                    temp += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%\n";
-                                    temp += "The notification is set to: " + notificat + "\n";
-                                    temp2 += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%\n";
-                                    temp2 += "The notification is set to: " + notificat + "\n";
-                                } else if (d < 0) {
-                                    temp += "The level of water available is: " + 0 + "%\n";
-                                    temp += "The notification is set to: " + notificat + "\n";
-                                    temp2 += "The level of water available is: " + 0 + "%\n";
-                                    temp2 += "The notification is set to: " + notificat + "\n";
+                    String height = childDataSnapshot.child("Height").getValue().toString();
+                    String readings = childDataSnapshot.child("Readings").getValue().toString();
+                    String notificat = childDataSnapshot.child("notification").getValue().toString();
 
-                                }
-                                tanksListtext.add(temp);
-                                tanksListtextinch.add(temp2);
-                            }
-                        }
+                    waterLevel = Integer.parseInt(readings);
+                    String temp = "";
+                    String temp2 = "";
+                    temp += childDataSnapshot.getKey() + "\n";
+                    temp2 += childDataSnapshot.getKey() + "\n";
+                    double y = Double.parseDouble(String.valueOf(height));
+                    double d = ((y - waterLevel));
+                    double z = y * 0.393701;
+                    String nnot = "OFF";
+                    int setnot = Integer.parseInt((notificat));
+                    if (setnot == 1) {
+                        nnot = "Quarter";
+                    }
+                    if (setnot == 2) {
+                        nnot = "Half";
+                    }
+                    if (setnot == 3) {
+                        nnot = "Three Quarter";
+                    }
+                    if (setnot == 4) {
+                        nnot = "OFF";
+                    }
+
+                    temp += "The height is: " + new DecimalFormat("##.##").format(y) + "cm\n";
+
+                    temp2 += "The height is: " + new DecimalFormat("##.##").format(z) + "inches\n";
+                    if (d >= 0) {
+                        temp += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%\n";
+                        temp += "The notification is set to:" + nnot + "\n";
+                        temp2 += "The level of water available is: " + new DecimalFormat("##.##").format((d / y) * 100) + "%\n";
+                        temp2 += "The notification is set to:" + nnot + "\n";
+                    } else if (d < 0) {
+                        temp += "The level of water available is: " + 0 + "%\n";
+                        temp += "The notification is set to:" + nnot + "\n";
+                        temp2 += "The level of water available is: " + 0 + "%\n";
+                        temp2 += "The notification is set to:" + nnot + "\n";
+                    }
+                    tanksListtext.add(temp);
+                    tanksListtextinch.add(temp2);
+                }
+
+
                         if (MainActivity.e == 0) {
-                            ArrayAdapter arrayAdapter = new ArrayAdapter<String>(listtanks.this, android.R.layout.simple_list_item_1, tanksListtext);
-                            listviewitems.setAdapter(arrayAdapter);
+                ArrayAdapter arrayAdapter = new ArrayAdapter<String>(listtanks.this, android.R.layout.simple_list_item_1, tanksListtext);
+                listviewitems.setAdapter(arrayAdapter);
                         }
                         if (MainActivity.e == 1) {
                             ArrayAdapter<String> arrayAdapter = new ArrayAdapter(listtanks.this, android.R.layout.simple_list_item_1, tanksListtextinch);
@@ -133,29 +141,25 @@ public class listtanks extends AppCompatActivity {
                         }
 
 
-                        ; //should I use setValue()...?
-                        //Log.v("Testing",""+ childDataSnapshot.getKey()); //displays the key for the node
-                        //Log.v("Testing",""+ childDataSnapshot.child().getKey());
-                        //   refresh(10000); //refresh
-                    }
+                ; //should I use setValue()...?
+                //Log.v("Testing",""+ childDataSnapshot.getKey()); //displays the key for the node
+                //Log.v("Testing",""+ childDataSnapshot.child().getKey());
+                //   refresh(10000); //refresh
 
 
-                    //Toast.makeText(MainActivity.this, "The snapshot is "+dataSnapshot.getValue(), Toast.LENGTH_SHORT).show();
-                    System.out.println(dataSnapshot.getValue());
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    System.out.println("The read failed: " + databaseError.getCode());
-                }
-            });
+                //Toast.makeText(MainActivity.this, "The snapshot is "+dataSnapshot.getValue(), Toast.LENGTH_SHORT).show();
+                //    System.out.println(dataSnapshot.getValue());
 
 
-        }
-        catch (Exception ex) {
-            // System.out.println(ex.toString());
-            Toast.makeText(listtanks.this, "The error is "+ex.toString(), Toast.LENGTH_LONG).show();
-        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
 
@@ -165,6 +169,6 @@ public class listtanks extends AppCompatActivity {
     }
     protected void onStart() {
         super.onStart();
-        loadlistviews();
+       loadlistviews();
     }
 }

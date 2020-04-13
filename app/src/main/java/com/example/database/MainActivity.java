@@ -1,8 +1,6 @@
 
 package com.example.database;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,8 +9,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,20 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.database.database.DatabaseHelper;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 //import static androidx.core.app.NotificationCompat.Builder;
 
@@ -52,23 +45,18 @@ public class MainActivity extends AppCompatActivity  {
 
    final DatabaseReference refChild = databaseReference.child("users");
 
-    String stringWaterLevel;
-    String intWaterLevel;
-    Integer waterLevel;
-    static Integer prev;
-    CountDownTimer countdowntimer;
-        static int percent=0;
 
 
-   static  int noti = 1;//notification default value is false
-      static  int id=1;
-     static   int swt=0;
+
+//   static  int noti = 1;//notification default value is false
+//      static  int id=1;
+//     static   int swt=0;
 static String name;
-   static Editable notifi;
-    static Editable percent1;
-    static int ref=10000;//default value for notification recurrence
-    private NotificationManager mNotifyManager;
-    private Notification.Builder mBuilder;
+//   static Editable notifi;
+   // static Editable percent1;
+   // static int ref=10000;//default value for notification recurrence
+//    private NotificationManager mNotifyManager;
+//    private Notification.Builder mBuilder;
 
 
     /**
@@ -81,8 +69,7 @@ static String name;
     protected Button selectbutton;
     protected FloatingActionButton actionbutton2;
     protected TextView textView;
-    ArrayList<String> tanksListtext = new ArrayList<>();//array to list tanks in cm's
-    ArrayList<String> tanksListtextinch = new ArrayList<>();//array to list tanks in inches
+
     static int e = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -92,22 +79,7 @@ static String name;
         setContentView(R.layout.activity_main);
 
 
-       //April 7
 
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//DatabaseReference myRef = database.getReference();
-//myRef.addValueEventListener(new ValueEventListener() {
-// @Override
-// public void onDataChange(DataSnapshot dataSnapshot) {
-//    for(DataSnapshot item_snapshot:dataSnapshot.getChildren()) {
-//
-//      Log.d("item id ",item_snapshot.child("item_id").getValue().toString());
-//      Log.d("item desc",item_snapshot.child("item_desc").getValue().toString());
-//     }
-//  }
-//}
-
-        //April 7
 
 
 
@@ -118,21 +90,18 @@ static String name;
         firebaseAuth = FirebaseAuth.getInstance();
 
         textView = findViewById(R.id.textView);
-     //   listviewitems = findViewById(R.id.listviewitems);
-//        actionbutton = findViewById(R.id.actionbutton);
+
         selectbutton = findViewById(R.id.selectbutton);
         actionbutton2 = findViewById(R.id.actionbutton2);
 
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-//listing all tanks
-        List<Tank> tanks = dbHelper.getAllTanks();
+
 
 
 
 
         selectbutton.setOnClickListener(new View.OnClickListener() {
                                             @Override
-                                            public void onClick(View v) {DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
+                                            public void onClick(View v) {
 
 
                                                 { openactivityselect();
@@ -156,21 +125,7 @@ static String name;
 
         });
 
-    //loadlistviews();
 
-//        listviewitems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//the selection from listview, once you click on any tank
-//                // Intent intent = new Intent(MainActivity.this, tankview.class);
-//                Intent intent = new Intent(MainActivity.this, tankview.class);//running the tankview activity
-//
-//                String tankselected = tanksListtext.get(position);//locating the position where it will pass the tank name and tank height
-//                intent.putExtra("selectedd", tankselected);
-//                startActivity(intent);
-//
-//
-//            }
-//        });
 
 
 
@@ -263,53 +218,52 @@ static String name;
     }
 
 
-    public class CountDownTimerClass extends CountDownTimer {
-
-        public CountDownTimerClass(long millisInFuture, long countDownInterval) {
-
-            super(millisInFuture, countDownInterval);
-
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-
-            int progress = (int) (millisUntilFinished/1000);
-
-           // textview.setText(Integer.toString(progress));
-
-        }
-
-        @Override
-        public void onFinish() {
-//                         noti = 0;
-//                            id = 1;
-         //   textview.setText(" Count Down Finish ");
-        //    countdowntimer.start();
-
-        }
-
-    }
-
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        noti=1;
-
-
-
-
-    }
-
-//    public void startService(View view) {
-//        startService(new Intent(this, service1.class));
+//    public class CountDownTimerClass extends CountDownTimer {
+//
+//        public CountDownTimerClass(long millisInFuture, long countDownInterval) {
+//
+//            super(millisInFuture, countDownInterval);
+//
+//        }
+//
+//        @Override
+//        public void onTick(long millisUntilFinished) {
+//
+//            int progress = (int) (millisUntilFinished/1000);
+//
+//           // textview.setText(Integer.toString(progress));
+//
+//        }
+//
+//        @Override
+//        public void onFinish() {
+////                         noti = 0;
+////                            id = 1;
+//         //   textview.setText(" Count Down Finish ");
+//        //    countdowntimer.start();
+//
+//        }
+//
 //    }
+
+
+
+
 
 
     protected void onStart() {
         super.onStart();
+        int t = isOnline();
+        if (t == 0) {
+            Toast.makeText(this, "Kindly check your internet connection, it is unstable", Toast.LENGTH_SHORT).show();
+            selectbutton.setEnabled(false);
+            actionbutton2.setEnabled(false);
 
+        }
+
+        if (t == 1)
+        {selectbutton.setEnabled(true);
+            actionbutton2.setEnabled(true);}
 SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.profilefile), Context.MODE_PRIVATE);
     name = sharedPreferences.getString(getString(R.string.profilename), null);// retrieves the name field
      //   Toast.makeText(this, "thesavednameis"+name, Toast.LENGTH_SHORT).show();

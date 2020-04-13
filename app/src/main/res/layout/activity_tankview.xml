@@ -80,4 +80,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="112dp"
+        android:layout_height="38dp"
+        tools:layout_editor_absoluteX="298dp"
+        tools:layout_editor_absoluteY="171dp"
+        tools:ignore="MissingConstraints"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

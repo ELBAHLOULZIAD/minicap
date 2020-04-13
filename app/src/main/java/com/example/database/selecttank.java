@@ -1,8 +1,9 @@
 package com.example.database;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.database.database.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,8 +39,13 @@ public class selecttank extends AppCompatActivity {
     Integer imgid[]={R.drawable.reno,R.drawable.sintex,R.drawable.loft};
     ArrayList<String> tanklist = new ArrayList<>();
     int selected;
-
+static String name;
 static int id1=1;
+
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDbRef;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +53,7 @@ static int id1=1;
 //        actionbutton = findViewById(R.id.actionbutton);
 
         setContentView(R.layout.activity_selecttank);
-
+        final String token = FirebaseInstanceId.getInstance().getToken();
         list=findViewById(R.id.list);
         myadapter adapter = new myadapter();
         list.setAdapter(adapter);
@@ -102,44 +107,75 @@ static int id1=1;
 //                                DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
 //                                dbHelper.insertTank(new Tank(b[1], f));
 
-
-
-
-         /////////////////////////////////////
                                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                                rootRef.child("users").child(name);
                                 rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot snapshot) {
-                                        if (snapshot.child("users").child(MainActivity.name).hasChild(b[1])) {
-                                            Toast.makeText(selecttank.this, "Tank already Exists", Toast.LENGTH_SHORT).show();
-                                        } else {
-
-
+                                        if (!snapshot.child("users").child(name).hasChild(b[1])) {
                                             DatabaseReference mDatabase;
                                             mDatabase = FirebaseDatabase.getInstance().getReference();
                                             double r = Double.parseDouble(f);
                                             //mDatabase.child("users").child("Client_ID").child("Loft").child("Height").setValue(1000);
-                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("Height").setValue(r);
-                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("Readings").setValue(0);
-                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("notification").setValue(selected);
-                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("macaddress").setValue(input.getText().toString());
-                                            String token = FirebaseInstanceId.getInstance().getToken();
-
-                                            Log.d("Refreshed token: ", token);
-                                            // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
-                                            mDatabase.child("users").child(MainActivity.name).child(b[1]).child("token").setValue(token);
+                                            mDatabase.child("users").child(name).child(b[1]).child("Height").setValue(r);
+                                            mDatabase.child("users").child(name).child(b[1]).child("Readings").setValue(0);
+                                            mDatabase.child("users").child(name).child(b[1]).child("notification").setValue(selected);
+                                            mDatabase.child("users").child(name).child(b[1]).child("macaddress").setValue(input.getText().toString());
+                                            mDatabase.child("users").child(name).child(b[1]).child("token").setValue(token);
                                             Toast.makeText(selecttank.this, "The tank is added successfully", Toast.LENGTH_LONG).show();
 
+
                                         }
+                                        else
+                                            Toast.makeText(selecttank.this, "Tank already Exists", Toast.LENGTH_SHORT).show();
 
                                     }
-                                        @Override
-                                        public void onCancelled (@NonNull DatabaseError
-                                        databaseError){
 
-                                        }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                    });
+                                    }
+                                });
+
+
+
+
+         /////////////////////////////////////
+//                                final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//                                rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(DataSnapshot snapshot) {
+//                                        if (snapshot.child("users").child(name).hasChild(b[1])) {
+//                                            Toast.makeText(selecttank.this, "Tank already Exists", Toast.LENGTH_SHORT).show();
+//                                        } else {
+//
+////Writing Hashmap
+//
+//                                            DatabaseReference mDatabase;
+//                                            mDatabase = FirebaseDatabase.getInstance().getReference();
+//                                            double r = Double.parseDouble(f);
+//                                            //mDatabase.child("users").child("Client_ID").child("Loft").child("Height").setValue(1000);
+//                                            mDatabase.child("users").child(name).child(b[1]).child("Height").setValue(r);
+//                                            mDatabase.child("users").child(name).child(b[1]).child("Readings").setValue(0);
+//                                            mDatabase.child("users").child(name).child(b[1]).child("notification").setValue(selected);
+//                                            mDatabase.child("users").child(name).child(b[1]).child("macaddress").setValue(input.getText().toString());
+//
+//
+//                                         //   Log.d("Refreshed token: ", token);
+//                                            // Toast.makeText(this, ""+token, Toast.LENGTH_LONG).show();
+//                                            mDatabase.child("users").child(name).child(b[1]).child("token").setValue(token);
+//                                            Toast.makeText(selecttank.this, "The tank is added successfully", Toast.LENGTH_LONG).show();
+//
+//                                        }
+//
+//                                    }
+//                                        @Override
+//                                        public void onCancelled (@NonNull DatabaseError
+//                                        databaseError){
+//
+//                                        }
+//
+//                                    });
 
 
 
@@ -200,7 +236,7 @@ static int id1=1;
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        DatabaseHelper dbHelper = new DatabaseHelper(selecttank.this);
+
 
 
                 inserttankfrag dialog = new inserttankfrag();
@@ -245,50 +281,23 @@ static int id1=1;
         }
 
 
-//    public void checktank(final String tankname) {
-//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//        final DatabaseReference databaseReference = firebaseDatabase.getReference();
-//        final DatabaseReference refChild = databaseReference.child("users");
-//        refChild.addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                Map<String, Object> td = (HashMap<String, Object>) dataSnapshot.getValue();
-//                int p=0;
-//                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-//                    DatabaseReference objRef = refChild.child(childDataSnapshot.getKey());
-//                    Map<String, Object> taskMap = new HashMap<String, Object>();
-//                    //taskMap.put("is_read", "1");
-//                    Log.v("Testing", "" + childDataSnapshot.getKey());
-//                    if (childDataSnapshot.getKey().equalsIgnoreCase(MainActivity.name)) {
-//                        DatabaseReference refChild2 = databaseReference.child("users").child(childDataSnapshot.getKey());
-//                        for (DataSnapshot childDataSnapshot2 : dataSnapshot.child(childDataSnapshot.getKey()).getChildren()) {
-//                            DatabaseReference objRef2 = refChild2.child(childDataSnapshot2.getKey());
-//                            Map<String, Object> taskMap2 = new HashMap<String, Object>();
-//                            Log.v("Testing2", "" + childDataSnapshot2.getKey());
-//                            Log.v("Tankname", "" + tankname);
-//                            DatabaseReference refChild3 = databaseReference.child("users").child(childDataSnapshot.getKey()).child(childDataSnapshot2.getKey());
-//                            if (childDataSnapshot2.getKey().equalsIgnoreCase(tankname))
-//                            {n=1;
-//                                p=1;
-//                                Log.v("valueofnhere is", "" +n);}
-//
-//                        }
-//                    }
-//
-//                    if(p==0)
-//                        n=0;}
-//                Log.v("valueofnbefore is", "" +n);;}
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//
-//        });
-//
-//
-//    }
+
+
+    protected void onStart() {
+        super.onStart();
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.profilefile), Context.MODE_PRIVATE);
+        name = sharedPreferences.getString(getString(R.string.profilename), null);// retrieves the name field
+
+
+    }
+
+
+
+
+
+
+
 
     }

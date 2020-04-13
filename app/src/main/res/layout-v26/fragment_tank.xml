@@ -223,7 +223,7 @@
         android:ems="10"
         android:hint="Sensor MacAddress"
         android:importantForAutofill="no"
-        android:inputType="number"
+
         android:padding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
