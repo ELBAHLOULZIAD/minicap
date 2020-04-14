@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="passreset">Réinitialiser le mot de pass</string>
+    <string name="passreset">Réinitialiser le Mot de Pass</string>
     <string name="app_name">Indicateur de niveau de réservoir d\'eau</string>
     <string name="quarter">25% Restant dans le Réservoir</string>
     <string name="half">50% Restant dans le Réservoir</string>
