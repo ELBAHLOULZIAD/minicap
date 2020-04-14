@@ -10,22 +10,21 @@
 
     <Button
         android:id="@+id/selectbutton"
-        android:text="@string/configtank"
         android:layout_width="241dp"
         android:layout_height="59dp"
-        android:layout_marginEnd="136dp"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/custom_buttons"
+        android:text="@string/configtank"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.446" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/actionbutton2"
         android:layout_width="65dp"
         android:layout_height="61dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/edit_text_borders"
         android:src="@android:drawable/ic_menu_view"
         android:textColor="#FFFFFF"
@@ -33,7 +32,24 @@
         app:backgroundTint="#2196F3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.617"
         app:maxImageSize="26dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="67dp"
+        android:layout_height="43dp"
+        android:text="@string/viewtank"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.728" />
 
     <TextView
         android:id="@+id/textView"
@@ -45,16 +61,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="70dp"
-        android:layout_height="17dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="23dp"
-        android:text="@string/viewtank"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <Button
         android:id="@+id/button3"
         android:layout_width="328dp"
@@ -65,10 +71,10 @@
         android:textColor="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.165" />
+        app:layout_constraintVertical_bias="0.273" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
