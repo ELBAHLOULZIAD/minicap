@@ -187,7 +187,7 @@ private void checkEmailVerification(){
 
     private void showChangeLanguageDialog() {
 
-        final String [] listItems={"Français", "العربية"};
+        final String [] listItems={"Français","English" ,"العربية"};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(Login.this);
         mBuilder.setTitle("Choose Language...");
         mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {

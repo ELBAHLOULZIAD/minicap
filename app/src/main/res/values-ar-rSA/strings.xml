@@ -40,6 +40,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="switch2">Switch</string>
     <string name="sensormac">عنوان جهاز استشعار ماك</string>
-    <string name="WaterTankTitle">Water Tank Level indicator</string>
+    <string name="WaterTankTitle">مؤشر مستوى خزان المياه</string>
     <string name="savetank">حفظ</string>
 </resources>

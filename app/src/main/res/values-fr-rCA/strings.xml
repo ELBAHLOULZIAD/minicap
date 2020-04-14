@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="passreset">réinitialiser le mot de pass</string>
+    <string name="passreset">Réinitialiser le mot de pass</string>
     <string name="app_name">Indicateur de niveau de réservoir d\'eau</string>
     <string name="quarter">25% Restant dans le Réservoir</string>
     <string name="half">50% Restant dans le Réservoir</string>
@@ -40,6 +40,6 @@
     <string name="fb_login_protocol_scheme">fb219187272724177</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="switch2">Switch</string>
-    <string name="WaterTankTitle">Water Tank Level indicator</string>
+    <string name="WaterTankTitle">Indicateur de Niveau D\'Eau</string>
     <string name="savetank">sauvgarder</string>
 </resources>
