@@ -42,4 +42,5 @@
     <string name="sensormac">عنوان جهاز استشعار ماك</string>
     <string name="WaterTankTitle">مؤشر مستوى خزان المياه</string>
     <string name="savetank">حفظ</string>
+    <string name="selectlang">لغة</string>
 </resources>

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="passreset">Réinitialiser le Mot de Pass</string>
-    <string name="app_name">Indicateur de niveau de réservoir d\'eau</string>
+    <string name="app_name">Indicateur de Niveau de Réservoir d\'eau</string>
     <string name="quarter">25% Restant dans le Réservoir</string>
     <string name="half">50% Restant dans le Réservoir</string>
     <string name="threequarter">75% Restant dans le Réservoir</string>
     <string name="off">Aucune Notification</string>
     <string name="nameyourtank">Nommez votre Reservoir</string>
     <string name="name">Nom</string>
-    <string name="register">S\'enregistrer</string>
-    <string name="signupquestion">Vous n\'avez pas de compte?</string>
-    <string name="attempts">Nombre de tentatives Restant</string>
+    <string name="register">S\'Enregistrer</string>
+    <string name="signupquestion">Vous n\'Avez pas de Compte?</string>
+    <string name="attempts">Nombre de Tentatives Restant</string>
     <string name="forgotpassword">Mot de Pass Oublié?</string>
     <string name="confirmpassword">Confirmer le Mot de Pass</string>
     <string name="password">Mot de Pass</string>
-    <string name="email">e-mail</string>
-    <string name="emailaddress">Address e-mail</string>
+    <string name="email">E-mail</string>
+    <string name="emailaddress">Address E-mail</string>
     <string name="conversion">Convertir de Metric à Imperial</string>
     <string name="logout">Déconnecté</string>
     <string name="close">Fermer</string>
@@ -24,8 +24,8 @@
     <string name="weather">Vérifier Les Conditions Météo</string>
     <string name="configtank">"Configurer le Réservoir "</string>
     <string name="height">"Hauteur du Réservoir "</string>
-    <string name="setheight">Quelle est l\'hauteur du Réservoir?</string>
-    <string name="sensormac">Adress Mac du Sensor</string>
+    <string name="setheight">Quelle est l\'Hauteur du Réservoir?</string>
+    <string name="sensormac">Adress MAC du Sensor</string>
     <string name="tankname">Nom du Réservoir</string>
     <string name="units">Unité de l\'Hauteur du Réservoir</string>
     <string name="notiftitle">Quand vous Notifiez?</string>
@@ -33,7 +33,7 @@
     <string name="login">Se Conncter</string>
     <string name="haveaccount">Vous Avez Deja un Compte?</string>
     <string name="loginhere">Ce Connecter Ici</string>
-    <string name="save">save</string>
+    <string name="save">Sauvgarder</string>
     <string name="profilefile">profilefile</string>
     <string name="profilename">profilename</string>
     <string name="facebook_app_id">219187272724177</string>
@@ -42,4 +42,5 @@
     <string name="switch2">Switch</string>
     <string name="WaterTankTitle">Indicateur de Niveau D\'Eau</string>
     <string name="savetank">sauvgarder</string>
+    <string name="selectlang">langue</string>
 </resources>

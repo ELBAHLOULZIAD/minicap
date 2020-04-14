@@ -61,21 +61,21 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadLocale();
+        //loadLocale();
         setContentView(R.layout.activity_login);
 
-        ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle(getResources().getString(R.string.app_name));
+       // ActionBar actionBar=getSupportActionBar();
+        // actionBar.setTitle(getResources().getString(R.string.app_name));
 
-        Button changeLang = findViewById(R.id.changeMyLang);
-        changeLang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                showChangeLanguageDialog();
+       // Button changeLang = findViewById(R.id.changeMyLang);
+       // changeLang.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+         //   public void onClick(View view){
+           //     showChangeLanguageDialog();
 
-        }
+      //  }
 
-        });
+      //  });
 
         Name = (EditText)findViewById(R.id.etName);
         Password = (EditText)findViewById(R.id.etPassword);
@@ -185,7 +185,7 @@ private void checkEmailVerification(){
 //
 //    }
 
-    private void showChangeLanguageDialog() {
+/*    private void showChangeLanguageDialog() {
 
         final String [] listItems={"Français" ,"العربية", "English"};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(Login.this);
@@ -231,5 +231,5 @@ private void checkEmailVerification(){
         SharedPreferences prefs=getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language= prefs.getString("My_Lang", "");
                 setLocale(language);
-    }
+    }*/
 }
