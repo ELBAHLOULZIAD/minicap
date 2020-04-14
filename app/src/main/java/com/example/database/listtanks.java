@@ -3,11 +3,13 @@ package com.example.database;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,13 +37,33 @@ public class listtanks extends AppCompatActivity {
 
 
     final DatabaseReference refChild = databaseReference.child("users");
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu3,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        loadlistviews();
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listtanks);
+        getSupportActionBar().setTitle("List of Tanks");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listviewitems = findViewById(R.id.listviewitems);
 
-            listviewitems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+
+        listviewitems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//the selection from listview, once you click on any tank
                 // Intent intent = new Intent(MainActivity.this, tankview.class);
@@ -59,6 +81,14 @@ public class listtanks extends AppCompatActivity {
 
 
 
+
+
+
+
+
+
+
+
     }
 
     protected void loadlistviews() {
@@ -71,7 +101,7 @@ public class listtanks extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 //snapshot.child("users").child(MainActivity.name).getChildren().toString() ;
 
-                Toast.makeText(listtanks.this, "snashot" + snapshot, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(listtanks.this, "snashot" + snapshot, Toast.LENGTH_SHORT).show();
                 //Log.v("snashot", "" + snapshot.child("users").child(MainActivity.name).getChildren() );
                 Log.v("snano", "" + snapshot.child("users").child(MainActivity.name).getValue());
                 //  Log.v("snano", "" + snapshot.getValue().toString());
@@ -167,6 +197,15 @@ public class listtanks extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
+
+
     protected void onStart() {
         super.onStart();
        loadlistviews();
