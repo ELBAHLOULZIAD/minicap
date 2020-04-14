@@ -106,23 +106,7 @@ String name;
 
 
 
-//        rootRef.addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//
-//                String test=snapshot.child("users").child(name).child(namef).child("notification").getValue().toString();
-//                value = Integer.parseInt(test);
-//             //   Toast.makeText(g, "The value of V is"+value, Toast.LENGTH_SHORT).show();
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+
 
 
 
@@ -151,7 +135,7 @@ String name;
             list.add("Three Quarter");
             ;}
 //
-        Toast.makeText(this, "The value of V is"+nato[1], Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "The value of V is"+nato[1], Toast.LENGTH_LONG).show();
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
@@ -169,26 +153,30 @@ String name;
     public void onItemSelected(AdapterView<?> parent, View view, int position,
                                long id) {
         // TODO Auto-generated method stub
-        Toast.makeText(this, "YOUR SELECTION IS SAVED : " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "YOUR SELECTION IS SAVED : " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
 
         String temp=parent.getItemAtPosition(position).toString();
         if(temp.equalsIgnoreCase("Quarter"))
 
         { FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseDatabase.getReference().child("users").child(name).child(namef).child("notification").setValue(1);}
+        firebaseDatabase.getReference().child("users").child(name).child(namef).child("notification").setValue(1);
+            Toast.makeText(this, "YOUR SELECTION IS SAVED : " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();}
 
         if(temp.equalsIgnoreCase("Three Quarter"))
 
         { FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            firebaseDatabase.getReference().child("users").child(name).child(namef).child("notification").setValue(3);}
+            firebaseDatabase.getReference().child("users").child(name).child(namef).child("notification").setValue(3);
+            Toast.makeText(this, "YOUR SELECTION IS SAVED : " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();}
         if(temp.equalsIgnoreCase("OFF"))
 
         { FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            firebaseDatabase.getReference().child("users").child(name).child(namef).child("notification").setValue(4);}
+            firebaseDatabase.getReference().child("users").child(name).child(namef).child("notification").setValue(4);
+            Toast.makeText(this, "YOUR SELECTION IS SAVED : " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();}
         if(temp.equalsIgnoreCase("Half"))
 
         { FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            firebaseDatabase.getReference().child("users").child(name).child(namef).child("notification").setValue(2);}
+            firebaseDatabase.getReference().child("users").child(name).child(namef).child("notification").setValue(2);
+            Toast.makeText(this, "YOUR SELECTION IS SAVED : " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();}
 
     }
 
