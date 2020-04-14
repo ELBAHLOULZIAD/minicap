@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="passreset">إعادة تعيين كلمة المرور</string>
+    <string name="app_name">مؤشر مستوى خزان المياه</string>
+    <string name="notiftitle">متى تريد أن يتم إعلامك؟</string>
+    <string name="units">وحدات ارتفاع الخزان</string>
+    <string name="tankname">اسم الخزان</string>
+    <string name="setheight">ما هو ارتفاع الخزان</string>
+    <string name="height">" ارتفاع الخزان"</string>
+    <string name="close">أغلق</string>
+    <string name="inches">إنش</string>
+    <string name="centi">سنتيمتر</string>
+    <string name="weather">النشرة الجوية</string>
+    <string name="configtank">تكوين الخزان</string>
+    <string name="viewtank">عرض الخزان</string>
+    <string name="logout">تسجيل خروج</string>
+    <string name="conversion">تحويل من القياس إلى الإمبراطوري</string>
+    <string name="emailaddress">عنوان البريد الإلكتروني</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمه السر</string>
+    <string name="confirmpassword">تأكيد كلمه السر</string>
+    <string name="forgotpassword">هل نسيت كلمه السر؟</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="attempts">عدد المحاولات المتبقية:</string>
+    <string name="signupquestion">لا تملك حساب؟</string>
+    <string name="register">تسجيل</string>
+    <string name="name">اسم</string>
+    <string name="haveaccount">هل لديك حساب؟</string>
+    <string name="loginhere">تسجيل الدخول هنا!</string>
+    <string name="quarter">25% غادر في الخزان</string>
+    <string name="half">50% غادر في الخزان</string>
+    <string name="off">الإخطار متوقف</string>
+    <string name="nameyourtank">اسم خزان</string>
+    <string name="threequarter">75% غادر في الخزان</string>
+    <string name="save">حفظ</string>
+    <string name="profilefile">profilefile</string>
+    <string name="profilename">profilename</string>
+    <string name="facebook_app_id">219187272724177</string>
+    <string name="fb_login_protocol_scheme">fb219187272724177</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="switch2">Switch</string>
+    <string name="sensormac">عنوان جهاز استشعار ماك</string>
+    <string name="WaterTankTitle">Water Tank Level indicator</string>
+    <string name="savetank">حفظ</string>
+</resources>

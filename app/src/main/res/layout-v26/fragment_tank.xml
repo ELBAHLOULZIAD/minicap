@@ -15,7 +15,7 @@
         android:layout_marginTop="348dp"
         android:layout_marginEnd="123dp"
         android:layout_marginBottom="2dp"
-        android:text="What is Your Tank Height?"
+        android:text="@string/setheight"
         app:layout_constraintBottom_toTopOf="@+id/tankcode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,10 +31,10 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="96dp"
         android:layout_marginBottom="2dp"
-        android:text="Enter the Sensor MacAddress"
+        android:text="@string/sensormac"
         app:layout_constraintBottom_toTopOf="@+id/macaddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tanktitle" />
 
@@ -63,7 +63,7 @@
         android:autofillHints=""
         android:background="@drawable/edit_text_borders"
         android:ems="10"
-        android:hint="Tank Name"
+        android:hint="@string/tankname"
         android:inputType="textPersonName"
         android:padding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
@@ -82,7 +82,7 @@
         android:layout_marginTop="504dp"
         android:layout_marginEnd="101dp"
         android:background="@drawable/custom_buttons"
-        android:text="Close"
+        android:text="@string/close"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
@@ -114,7 +114,7 @@
         android:layout_marginBottom="35dp"
         android:background="@drawable/edit_text_borders"
         android:ems="10"
-        android:hint="Tank Height"
+        android:hint="@string/height"
         android:importantForAutofill="no"
         android:inputType="number"
         android:padding="12dp"
@@ -139,26 +139,26 @@
             android:layout_width="183dp"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="25% Left in the tank" />
+            android:text="@string/quarter" />
 
         <RadioButton
             android:id="@+id/half"
             android:layout_width="182dp"
             android:layout_height="wrap_content"
-            android:text="50% Left in the tank " />
+            android:text="@string/half" />
 
         <RadioButton
             android:id="@+id/tquarter"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="75% Left in the tank" />
+            android:text="@string/threequarter" />
 
         <RadioButton
             android:id="@+id/nonot"
             android:layout_width="181dp"
             android:layout_height="wrap_content"
-            android:text="Notification Off" />
+            android:text="@string/off"/>
     </RadioGroup>
 
     <TextView
@@ -167,7 +167,7 @@
         android:layout_height="21dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="36dp"
-        android:text="When do you want to be notified?"
+        android:text="@string/notiftitle"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -190,13 +190,13 @@
             android:layout_height="wrap_content"
             android:checked="false"
 
-            android:text="Inches" />
+            android:text="@string/inches"/>
 
         <RadioButton
             android:id="@+id/radio_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Centimeters" />
+            android:text="@string/centi" />
 
 
     </RadioGroup>
@@ -206,7 +206,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
-        android:text="Units of Tank Height"
+        android:text="@string/units"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.914"
         app:layout_constraintStart_toStartOf="parent"
@@ -221,7 +221,7 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/edit_text_borders"
         android:ems="10"
-        android:hint="Sensor MacAddress"
+        android:hint="@string/sensormac"
         android:importantForAutofill="no"
 
         android:padding="12dp"
@@ -240,7 +240,7 @@
         android:layout_marginTop="204dp"
         android:layout_marginEnd="96dp"
         android:layout_marginBottom="1dp"
-        android:text="Name Your Tank"
+        android:text="@string/nameyourtank"
         app:layout_constraintBottom_toTopOf="@+id/tanktitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"

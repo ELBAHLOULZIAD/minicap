@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/item1"
-        android:title="Convert from Metric to Imperial"
+        android:title="@string/conversion"
         app:showAsAction="never"/>
 
     <item android:id="@+id/logout"
-        android:title="Log out"
+        android:title="@string/logout"
         app:showAsAction="never"/>
 
 </menu>

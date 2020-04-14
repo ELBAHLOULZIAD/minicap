@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">database</string>
+    <string name="app_name">Water Tank Level Indicator</string>
     <string name="save">Save</string>
     <string name="profilefile">ProfileFileName</string>
     <string name="profilename">profilename</string>
@@ -7,5 +7,52 @@
     <string name="fb_login_protocol_scheme">fb219187272724177</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="switch2">Switch</string>
+
+
+
+
+    <string name="passreset">Reset Password</string>
+    <string name="WaterTankTitle">Water Tank Level indicator</string>
+    <string name="notiftitle">When do you want to be notified?</string>
+    <string name="units">units of Tank Height</string>
+    <string name="quarter">25% left in the tank</string>
+    <string name="half">50% left in the tank</string>
+    <string name="threequarter">75% left in the tank</string>
+    <string name="off">Notification Off</string>
+    <string name="nameyourtank">Name Your Tank</string>
+    <string name="tankname">Tank Name</string>
+    <string name="sensormac">Sensor MacAddress</string>
+    <string name="setheight">What is Your Tank Height</string>
+    <string name="height">Tank Height</string>
+    <string name="savetank">Save</string>
+    <string name="close">Close</string>
+
+    <string name="inches">Inches</string>
+    <string name="centi">Centimeters</string>
+    <string name="weather">Check The Weather Forecast</string>
+    <string name="configtank">Configure Tank</string>
+    <string name="viewtank">View Tank</string>
+    <string name="logout">Log out</string>
+    <string name="conversion">Convert from Metric to Imperial</string>
+
+    <string name="emailaddress">Email Address</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name="forgotpassword">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="attempts">"Number of Attempts Remaining: "</string>
+    <string name="signupquestion">Don\'t have an account</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="haveaccount">Already Have an Account?</string>
+    <string name="loginhere">Login Here!</string>
+
+
+
+
+
+
+
 
 </resources>

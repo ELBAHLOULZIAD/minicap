@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="passreset">réinitialiser le mot de pass</string>
+    <string name="app_name">Indicateur de niveau de réservoir d\'eau</string>
+    <string name="quarter">25% Restant dans le Réservoir</string>
+    <string name="half">50% Restant dans le Réservoir</string>
+    <string name="threequarter">75% Restant dans le Réservoir</string>
+    <string name="off">Aucune Notification</string>
+    <string name="nameyourtank">Nommez votre Reservoir</string>
+    <string name="name">Nom</string>
+    <string name="register">S\'enregistrer</string>
+    <string name="signupquestion">Vous n\'avez pas de compte?</string>
+    <string name="attempts">Nombre de tentatives Restant</string>
+    <string name="forgotpassword">Mot de Pass Oublié?</string>
+    <string name="confirmpassword">Confirmer le Mot de Pass</string>
+    <string name="password">Mot de Pass</string>
+    <string name="email">e-mail</string>
+    <string name="emailaddress">Address e-mail</string>
+    <string name="conversion">Convertir de Metric à Imperial</string>
+    <string name="logout">Déconnecté</string>
+    <string name="close">Fermer</string>
+    <string name="inches">Pouce</string>
+    <string name="centi">Centimètre</string>
+    <string name="weather">Vérifier Les Conditions Météo</string>
+    <string name="configtank">"Configurer le Réservoir "</string>
+    <string name="height">"Hauteur du Réservoir "</string>
+    <string name="setheight">Quelle est l\'hauteur du Réservoir?</string>
+    <string name="sensormac">Adress Mac du Sensor</string>
+    <string name="tankname">Nom du Réservoir</string>
+    <string name="units">Unité de l\'Hauteur du Réservoir</string>
+    <string name="notiftitle">Quand vous Notifiez?</string>
+    <string name="viewtank">Voir Réservoir</string>
+    <string name="login">Se Conncter</string>
+    <string name="haveaccount">Vous Avez Deja un Compte?</string>
+    <string name="loginhere">Ce Connecter Ici</string>
+    <string name="save">save</string>
+    <string name="profilefile">profilefile</string>
+    <string name="profilename">profilename</string>
+    <string name="facebook_app_id">219187272724177</string>
+    <string name="fb_login_protocol_scheme">fb219187272724177</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="switch2">Switch</string>
+    <string name="WaterTankTitle">Water Tank Level indicator</string>
+    <string name="savetank">sauvgarder</string>
+</resources>
